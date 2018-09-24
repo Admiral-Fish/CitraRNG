@@ -47,7 +47,7 @@ class Manager:
             self.initialSeed = struct.unpack("<I", seed[0:4])[0]
             self.sfmt = SFMT(self.initialSeed)
             self.currentSeed = 0
-            self.frameCount = 0
+            self.frameCount = -1
             self.updateFrameCount()
 
     def partyPokemon(self, index):
