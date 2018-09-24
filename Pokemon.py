@@ -72,30 +72,37 @@ class Pokemon:
     def PID(self):
         return struct.unpack("<I", self.data[0x18:0x1C])[0]
 
+    def PSV(self):
+        val = self.PID()
+        return ((val >> 16) ^ (val & 0xffff)) >> 4
+
     def Nature(self):
         val = struct.unpack("B", self.data[0x1C:0x1D])[0]
         return natures[val]
 
+    def GenderNum(self):
+        return (struct.unpack("B", self.data[0x1D:0x1E])[0] >> 1) & 3
+
     def Gender(self):
-        return "TODO"
+        return genders[self.GenderNum()]
 
     def EVHP(self):
-        return str(struct.unpack("B", self.data[0x1E:0x1F])[0])
+        return struct.unpack("B", self.data[0x1E:0x1F])[0]
     
     def EVAtk(self):
-        return str(struct.unpack("B", self.data[0x1F:0x20])[0])
+        return struct.unpack("B", self.data[0x1F:0x20])[0]
     
     def EVDef(self):
-        return str(struct.unpack("B", self.data[0x20:0x21])[0])
+        return struct.unpack("B", self.data[0x20:0x21])[0]
     
     def EVSpA(self):
-        return str(struct.unpack("B", self.data[0x21:0x22])[0])
+        return struct.unpack("B", self.data[0x21:0x22])[0]
     
     def EVSpD(self):
-        return str(struct.unpack("B", self.data[0x22:0x23])[0])
+        return struct.unpack("B", self.data[0x22:0x23])[0]
     
     def EVSpe(self):
-        return str(struct.unpack("B", self.data[0x23:0x24])[0])
+        return struct.unpack("B", self.data[0x23:0x24])[0]
 
     def Move1(self):
         move_num = struct.unpack("<H", self.data[0x5A:0x5C])[0]
@@ -146,6 +153,12 @@ class Pokemon:
     def IVSpe(self):
         return (self.IV32() >> 25) & 0x1F
 
+    def HiddenPowerNum(self):
+        return int((((self.IVHP() & 1) + (self.IVAtk() & 1) * 2 + (self.IVDef() & 1) * 4 + (self.IVSpe() & 1) * 8 + (self.IVSpA() & 1) * 16 + (self.IVSpD() & 1) * 32) * 15) / 63)
+
+    def HiddenPower(self):
+        return hiddenPowers[self.HiddenPowerNum()]
+
     def CurrentHandler(self):
         return struct.unpack("B", self.data[0x93:0x94])[0]
 
@@ -181,6 +194,10 @@ class Pokemon:
     
     def Spe(self):
         return struct.unpack("<H", self.data[0xFC:0xFE])[0]
+
+genders = [ "Male", "Female", "Genderless" ]
+
+hiddenPowers = [ "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark" ]
 
 species = [ "Egg", "Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise",
 "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata",
