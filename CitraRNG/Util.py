@@ -22,3 +22,6 @@ def readWord(citra, address):
 def readDWord(citra, address):
     data = citra.read_memory(address, 4)
     return convertDWord(data, 0)
+
+def hexify(num):
+    return str(hex(num))[2:].upper()
