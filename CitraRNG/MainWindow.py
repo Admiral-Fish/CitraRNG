@@ -1,5 +1,5 @@
 from Manager import Manager
-from Util import hexify
+from Util import hexify, colorIV, colorPSV
 from PySide2.QtWidgets import QMainWindow, QComboBox, QPushButton, QLabel
 from PySide2.QtCore import QFile
 from PySide2.QtUiTools import QUiLoader
@@ -62,10 +62,12 @@ class MainWindow(QMainWindow):
         seed = self.manager.initialSeed
         curr = self.manager.currentSeed
         frame = self.manager.frameCount
+        tsv = self.manager.trainerShinyValue()
 
         self.findLabel("labelInitialSeedValue").setText(hexify(seed))
         self.findLabel("labelCurrentSeedValue").setText(hexify(curr))
         self.findLabel("labelFrameValue").setText(str(frame))
+        self.findLabel("labelTSVValue").setText(str(tsv))
 
     def updateEggRNG(self):
         values = self.manager.eggStatus()
@@ -94,21 +96,31 @@ class MainWindow(QMainWindow):
         self.findLabel("labelNatureValue").setText(pkm.Nature())
         self.findLabel("labelAbilityValue").setText(pkm.Ability())
         self.findLabel("labelItemValue").setText(pkm.HeldItem())
-        self.findLabel("labelPSVValue").setText(str(pkm.PSV()))
+        self.findLabel("labelPSVValue").setText(colorPSV(pkm.PSV(), self.manager.trainerShinyValue()))
         self.findLabel("labelHiddenPowerValue").setText(pkm.HiddenPower())
         self.findLabel("labelFriendshipValue").setText(str(pkm.CurrentFriendship()))
         
-        self.findLabel("labelHPValue").setText("IV: " + str(pkm.IVHP()) + "    EV: " + str(pkm.EVHP()))
-        self.findLabel("labelAtkValue").setText("IV: " + str(pkm.IVAtk()) + "    EV: " + str(pkm.EVAtk()))
-        self.findLabel("labelDefValue").setText("IV: " + str(pkm.IVDef()) + "    EV: " + str(pkm.EVDef()))
-        self.findLabel("labelSpAValue").setText("IV: " + str(pkm.IVSpA()) + "    EV: " + str(pkm.EVSpA()))
-        self.findLabel("labelSpDValue").setText("IV: " + str(pkm.IVSpD()) + "    EV: " + str(pkm.EVSpD()))
-        self.findLabel("labelSpeValue").setText("IV: " + str(pkm.IVSpe()) + "    EV: " + str(pkm.EVSpe()))
+        self.findLabel("labelHPIV").setText("IV: " + colorIV(pkm.IVHP()))
+        self.findLabel("labelAtkIV").setText("IV: " + colorIV(pkm.IVAtk()))
+        self.findLabel("labelDefIV").setText("IV: " + colorIV(pkm.IVDef()))
+        self.findLabel("labelSpAIV").setText("IV: " + colorIV(pkm.IVSpA()))
+        self.findLabel("labelSpDIV").setText("IV: " + colorIV(pkm.IVSpD()))
+        self.findLabel("labelSpeIV").setText("IV: " + colorIV(pkm.IVSpe()))
+        self.findLabel("labelHPEV").setText("EV: " + str(pkm.EVHP()))
+        self.findLabel("labelAtkEV").setText("EV: " + str(pkm.EVAtk()))
+        self.findLabel("labelDefEV").setText("EV: " + str(pkm.EVDef()))
+        self.findLabel("labelSpAEV").setText("EV: " + str(pkm.EVSpA()))
+        self.findLabel("labelSpDEV").setText("EV: " + str(pkm.EVSpD()))
+        self.findLabel("labelSpeEV").setText("EV: " + str(pkm.EVSpe()))
     
-        self.findLabel("labelMove1Value").setText("PP: " + str(pkm.Move1PP()) + ",    " + pkm.Move1())
-        self.findLabel("labelMove2Value").setText("PP: " + str(pkm.Move2PP()) + ",    " + pkm.Move2())
-        self.findLabel("labelMove3Value").setText("PP: " + str(pkm.Move3PP()) + ",    " + pkm.Move3())
-        self.findLabel("labelMove4Value").setText("PP: " + str(pkm.Move4PP()) + ",    " + pkm.Move4())
+        self.findLabel("labelMove1Name").setText(pkm.Move1())
+        self.findLabel("labelMove2Name").setText(pkm.Move2())
+        self.findLabel("labelMove3Name").setText(pkm.Move3())
+        self.findLabel("labelMove4Name").setText(pkm.Move4())
+        self.findLabel("labelMove1PP").setText("PP: " + str(pkm.Move1PP()))
+        self.findLabel("labelMove2PP").setText("PP: " + str(pkm.Move2PP()))
+        self.findLabel("labelMove3PP").setText("PP: " + str(pkm.Move3PP()))
+        self.findLabel("labelMove4PP").setText("PP: " + str(pkm.Move4PP()))
 
     def findComboBox(self, name):
         return self.ui.findChild(QComboBox, name)

@@ -21,6 +21,101 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="1">
+     <widget class="QGroupBox" name="groupBoxEggRNG">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>2</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Egg RNG</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelEggSeed3">
+         <property name="text">
+          <string>[3]</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="labelEggReadyStatus">
+         <property name="text">
+          <string>No egg yet</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelEggReady">
+         <property name="text">
+          <string>Egg Ready:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="labelEggSeed3Value">
+         <property name="text">
+          <string>00000000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="labelEggSeed1Value">
+         <property name="text">
+          <string>00000000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLabel" name="labelEggSeed2Value">
+         <property name="text">
+          <string>00000000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="labelEggSeed2">
+         <property name="text">
+          <string>[2]</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="labelEggSeed1">
+         <property name="text">
+          <string>[1]</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLabel" name="labelEggSeed0Value">
+         <property name="text">
+          <string>00000000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="labelEggSeed0">
+         <property name="text">
+          <string>[0]</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="pushButtonUpdateEggRNG">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Update</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="1" column="1">
      <widget class="QGroupBox" name="groupBoxMainRNG">
       <property name="sizePolicy">
@@ -33,10 +128,20 @@
        <string>Main RNG</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelInitialSeed">
+       <item row="3" column="1">
+        <widget class="QLabel" name="labelTSVValue">
          <property name="text">
-          <string>Initial Seed:</string>
+          <string>0000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="pushButtonUpdateMainRNG">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Update</string>
          </property>
         </widget>
        </item>
@@ -47,24 +152,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelCurrentSeed">
-         <property name="text">
-          <string>Current Seed:</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1">
         <widget class="QLabel" name="labelCurrentSeedValue">
          <property name="text">
           <string>0000000000000000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="labelFrame">
-         <property name="text">
-          <string>Frame:</string>
          </property>
         </widget>
        </item>
@@ -75,13 +166,31 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="pushButtonUpdateMainRNG">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelInitialSeed">
          <property name="text">
-          <string>Update</string>
+          <string>Initial Seed:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelCurrentSeed">
+         <property name="text">
+          <string>Current Seed:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="labelFrame">
+         <property name="text">
+          <string>Frame:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelTSV">
+         <property name="text">
+          <string>TSV:</string>
          </property>
         </widget>
        </item>
@@ -102,6 +211,12 @@
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
         <widget class="QComboBox" name="comboBoxGameSelection">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <item>
           <property name="text">
            <string>Sun/Moon</string>
@@ -116,6 +231,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QPushButton" name="pushButtonConnect">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>Connect</string>
          </property>
@@ -123,103 +244,14 @@
        </item>
        <item row="0" column="2">
         <widget class="QLabel" name="labelStatus">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>Status: Not Connected</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QGroupBox" name="groupBoxEggRNG">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>2</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="title">
-       <string>Egg RNG</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelEggReady">
-         <property name="text">
-          <string>Egg Ready:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="labelEggReadyStatus">
-         <property name="text">
-          <string>No egg yet</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelEggSeed3">
-         <property name="text">
-          <string>[3]</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="labelEggSeed3Value">
-         <property name="text">
-          <string>00000000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="labelEggSeed2">
-         <property name="text">
-          <string>[2]</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLabel" name="labelEggSeed2Value">
-         <property name="text">
-          <string>00000000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="labelEggSeed1">
-         <property name="text">
-          <string>[1]</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="labelEggSeed1Value">
-         <property name="text">
-          <string>00000000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="labelEggSeed0">
-         <property name="text">
-          <string>[0]</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QLabel" name="labelEggSeed0Value">
-         <property name="text">
-          <string>00000000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="pushButtonUpdateEggRNG">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Update</string>
          </property>
         </widget>
        </item>
@@ -237,163 +269,340 @@
       <property name="title">
        <string>Pokemon</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_5">
-       <item row="3" column="0">
-        <widget class="QLabel" name="labelNature">
-         <property name="text">
-          <string>Nature:</string>
-         </property>
-        </widget>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="1" column="0" colspan="2">
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelSpecies">
+           <property name="text">
+            <string>Species:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="labelSpeciesValue">
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelGender">
+           <property name="text">
+            <string>Gender:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="labelGenderValue">
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelNature">
+           <property name="text">
+            <string>Nature:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="labelNatureValue">
+           <property name="text">
+            <string>Hardy</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="labelAbility">
+           <property name="text">
+            <string>Ability:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="labelAbilityValue">
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="labelItem">
+           <property name="text">
+            <string>Item:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="labelItemValue">
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="labelPSV">
+           <property name="text">
+            <string>PSV:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLabel" name="labelPSVValue">
+           <property name="text">
+            <string>0000</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="labelHiddenPower">
+           <property name="text">
+            <string>Hidden Power:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLabel" name="labelHiddenPowerValue">
+           <property name="text">
+            <string>Fighting</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="labelFriendship">
+           <property name="text">
+            <string>Friendship:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QLabel" name="labelFriendshipValue">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="labelNatureValue">
-         <property name="text">
-          <string>Hardy</string>
-         </property>
-        </widget>
+       <item row="3" column="0" colspan="2">
+        <layout class="QGridLayout" name="gridLayout_7">
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelAtk">
+           <property name="text">
+            <string>Atk:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="labelDefEV">
+           <property name="text">
+            <string>EV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="labelSpAIV">
+           <property name="text">
+            <string>IV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="labelSpA">
+           <property name="text">
+            <string>SpA:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="labelDefIV">
+           <property name="text">
+            <string>IV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelHP">
+           <property name="text">
+            <string>HP:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QLabel" name="labelSpAEV">
+           <property name="text">
+            <string>EV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="labelSpD">
+           <property name="text">
+            <string>SpD:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="labelHPIV">
+           <property name="text">
+            <string>IV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelHPEV">
+           <property name="text">
+            <string>EV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="labelAtkEV">
+           <property name="text">
+            <string>EV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelDef">
+           <property name="text">
+            <string>Def:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="labelAtkIV">
+           <property name="text">
+            <string>IV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="labelSpDIV">
+           <property name="text">
+            <string>IV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="2">
+          <widget class="QLabel" name="labelSpeEV">
+           <property name="text">
+            <string>EV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLabel" name="labelSpeIV">
+           <property name="text">
+            <string>IV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLabel" name="labelSpDEV">
+           <property name="text">
+            <string>EV: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="labelSpe">
+           <property name="text">
+            <string>Spe:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="4" column="1">
-        <widget class="QLabel" name="labelAbilityValue">
-         <property name="text">
-          <string>None</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="labelAbility">
-         <property name="text">
-          <string>Ability:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="labelItem">
-         <property name="text">
-          <string>Item:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLabel" name="labelItemValue">
-         <property name="text">
-          <string>None</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="labelPSV">
-         <property name="text">
-          <string>PSV:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="labelHiddenPower">
-         <property name="text">
-          <string>Hidden Power:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <widget class="QLabel" name="labelHiddenPowerValue">
-         <property name="text">
-          <string>Fighting</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QLabel" name="labelPSVValue">
-         <property name="text">
-          <string>0000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="labelFriendship">
-         <property name="text">
-          <string>Friendship:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1">
-        <widget class="QLabel" name="labelFriendshipValue">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0">
-        <widget class="QLabel" name="labelHP">
-         <property name="text">
-          <string>HP:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="1">
-        <widget class="QLabel" name="labelHPValue">
-         <property name="text">
-          <string>IV: 0    EV: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0">
-        <widget class="QLabel" name="labelAtk">
-         <property name="text">
-          <string>Atk:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="19" column="0">
-        <widget class="QLabel" name="labelMove3">
-         <property name="text">
-          <string>Move 3:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="18" column="1">
-        <widget class="QLabel" name="labelMove2Value">
-         <property name="text">
-          <string>PP: 0,    None</string>
-         </property>
-        </widget>
-       </item>
-       <item row="19" column="1">
-        <widget class="QLabel" name="labelMove3Value">
-         <property name="text">
-          <string>PP: 0,    None</string>
-         </property>
-        </widget>
-       </item>
-       <item row="20" column="0">
-        <widget class="QLabel" name="labelMove4">
-         <property name="text">
-          <string>Move 4:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="20" column="1">
-        <widget class="QLabel" name="labelMove4Value">
-         <property name="text">
-          <string>PP: 0,    None</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="pushButtonUpdatePokemon">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Update</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelSpecies">
-         <property name="text">
-          <string>Species:</string>
-         </property>
-        </widget>
+       <item row="5" column="0" colspan="2">
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelMove1">
+           <property name="text">
+            <string>Move 1:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="labelMove1Name">
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelMove1PP">
+           <property name="text">
+            <string>PP: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelMove2">
+           <property name="text">
+            <string>Move 2:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="labelMove2Name">
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="labelMove2PP">
+           <property name="text">
+            <string>PP: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelMove3">
+           <property name="text">
+            <string>Move 3:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="labelMove3Name">
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="labelMove3PP">
+           <property name="text">
+            <string>PP: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="labelMove4">
+           <property name="text">
+            <string>Move 4:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="labelMove4Name">
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QLabel" name="labelMove4PP">
+           <property name="text">
+            <string>PP: 0</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item row="0" column="0">
         <widget class="QComboBox" name="comboBoxPokemon">
@@ -437,112 +646,17 @@
          </item>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="labelSpeciesValue">
-         <property name="text">
-          <string>None</string>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButtonUpdatePokemon">
+         <property name="enabled">
+          <bool>false</bool>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="labelGenderValue">
          <property name="text">
-          <string>None</string>
+          <string>Update</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="labelGender">
-         <property name="text">
-          <string>Gender:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="0">
-        <widget class="QLabel" name="labelSpe">
-         <property name="text">
-          <string>Spe:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="1">
-        <widget class="QLabel" name="labelDefValue">
-         <property name="text">
-          <string>IV: 0    EV: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="18" column="0">
-        <widget class="QLabel" name="labelMove2">
-         <property name="text">
-          <string>Move 2:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="1">
-        <widget class="QLabel" name="labelSpDValue">
-         <property name="text">
-          <string>IV: 0    EV: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="0">
-        <widget class="QLabel" name="labelDef">
-         <property name="text">
-          <string>Def:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="0">
-        <widget class="QLabel" name="labelSpA">
-         <property name="text">
-          <string>SpA:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="1">
-        <widget class="QLabel" name="labelSpeValue">
-         <property name="text">
-          <string>IV: 0    EV: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="17" column="0">
-        <widget class="QLabel" name="labelMove1">
-         <property name="text">
-          <string>Move 1:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="1">
-        <widget class="QLabel" name="labelSpAValue">
-         <property name="text">
-          <string>IV: 0    EV: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="0">
-        <widget class="QLabel" name="labelSpD">
-         <property name="text">
-          <string>SpD:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="1">
-        <widget class="QLabel" name="labelAtkValue">
-         <property name="text">
-          <string>IV: 0    EV: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="17" column="1">
-        <widget class="QLabel" name="labelMove1Value">
-         <property name="text">
-          <string>PP: 0,    None</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -555,7 +669,7 @@
          </property>
         </spacer>
        </item>
-       <item row="16" column="0">
+       <item row="4" column="0">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

@@ -30,6 +30,8 @@ class Manager:
 
             self.eggReady = 0x3313EDD8
             self.eggAddress = 0x3313eddc
+
+            self.trainerID = 0x330D67D0
         else:
             self.partyAddress = 0x33F7FA44
             self.wildAddress = 0x32993404
@@ -40,6 +42,8 @@ class Manager:
 
             self.eggReady = 0x3307B1E8
             self.eggAddress = 0x3307B1EC
+
+            self.trainerID = 0x33012818
 
         if self.isConnected == True:
             self.initialSeed = readDWord(self.connection, self.seedAddress)
@@ -97,3 +101,7 @@ class Manager:
         seed2 = readDWord(self.connection, pointer + 4)
 
         return (seed2 << 32) | seed1
+
+    def trainerShinyValue(self):
+        val = readDWord(self.connection, self.trainerID)
+        return ((val >> 16) ^ (val & 0xffff)) >> 4
