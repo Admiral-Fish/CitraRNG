@@ -1,10 +1,7 @@
-import time
-
 from Manager import Manager
 from PySide2.QtWidgets import QMainWindow, QComboBox, QPushButton, QLabel
 from PySide2.QtCore import QFile
 from PySide2.QtUiTools import QUiLoader
-#from PySide2 import QtCore, QtGui, QtWidgets 
 
 class MainWindow(QMainWindow):
     def __init__(self, parent = None):

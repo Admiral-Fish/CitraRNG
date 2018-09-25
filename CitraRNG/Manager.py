@@ -1,8 +1,8 @@
-import struct
 import time
 
 from SFMT import SFMT
 from Pokemon import Pokemon
+from Util import readDWord
 from citra import Citra
 
 SM = 0
@@ -11,7 +11,6 @@ USUM = 1
 class Manager:
     def __init__(self, game):
         self.connection = Citra()
-
         
         # is_connected does not seem to work
         if self.connection.is_connected():
@@ -43,8 +42,7 @@ class Manager:
             self.eggAddress = 0x3307B1EC
 
         if self.isConnected == True:
-            seed = self.connection.read_memory(self.seedAddress,4)
-            self.initialSeed = struct.unpack("<I", seed[0:4])[0]
+            self.initialSeed = readDWord(self.connection, self.seedAddress)
             self.sfmt = SFMT(self.initialSeed)
             self.currentSeed = 0
             self.frameCount = -1
@@ -71,20 +69,12 @@ class Manager:
         return pkm
 
     def eggStatus(self):
-        val = self.connection.read_memory(self.eggReady, 4)
-        val = struct.unpack("<I", val[0:4])[0]
+        val = readDWord(self.connection, self.eggReady)
 
-        seed3 = self.connection.read_memory(self.eggAddress, 4)
-        seed3 = struct.unpack("<I", seed3[0:4])[0]
-
-        seed2 = self.connection.read_memory(self.eggAddress + 4, 4)
-        seed2 = struct.unpack("<I", seed2[0:4])[0]
-
-        seed1 = self.connection.read_memory(self.eggAddress + 8, 4)
-        seed1 = struct.unpack("<I", seed1[0:4])[0]
-        
-        seed0 = self.connection.read_memory(self.eggAddress + 12, 4)
-        seed0 = struct.unpack("<I", seed0[0:4])[0]
+        seed3 = readDWord(self.connection, self.eggAddress)
+        seed2 = readDWord(self.connection, self.eggAddress + 4)
+        seed1 = readDWord(self.connection, self.eggAddress + 8)
+        seed0 = readDWord(self.connection, self.eggAddress + 12)
 
         return [ val, seed3, seed2, seed1, seed0 ]
 
@@ -96,17 +86,14 @@ class Manager:
             self.frameCount += 1
 
     def getCurrentSeed(self):
-        index = self.connection.read_memory(self.sfmtIndex, 4)
-        index = struct.unpack("<I", index[0:4])[0]
+        index = readDWord(self.connection, self.sfmtIndex)
 
         if index == 624:
             pointer = self.sfmtStart
         else:
             pointer = self.sfmtStart + (index * 4)
 
-        seed1 = self.connection.read_memory(pointer, 4)
-        seed2 = self.connection.read_memory(pointer + 4, 4)
-        seed1 = struct.unpack("<I", seed1[0:4])[0]
-        seed2 = struct.unpack("<I", seed2[0:4])[0]
+        seed1 = readDWord(self.connection, pointer)
+        seed2 = readDWord(self.connection, pointer + 4)
 
         return (seed2 << 32) | seed1
