@@ -101,13 +101,13 @@ class Pokemon:
         return (self.IV32() >> 10) & 0x1F
     
     def IVSpA(self):
-        return (self.IV32() >> 15) & 0x1F
-    
-    def IVSpD(self):
         return (self.IV32() >> 20) & 0x1F
     
-    def IVSpe(self):
+    def IVSpD(self):
         return (self.IV32() >> 25) & 0x1F
+    
+    def IVSpe(self):
+        return (self.IV32() >> 15) & 0x1F
 
     def HiddenPowerNum(self):
         return int((((self.IVHP() & 1) + (self.IVAtk() & 1) * 2 + (self.IVDef() & 1) * 4 + (self.IVSpe() & 1) * 8 + (self.IVSpA() & 1) * 16 + (self.IVSpD() & 1) * 32) * 15) / 63)
