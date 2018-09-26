@@ -24,6 +24,9 @@ class Pokemon:
     def SID(self):
         return convertWord(self.data, 0xE)
 
+    def TSV(self):
+        return (self.TID() ^ self.SID()) >> 4
+
     def Ability(self):
         return abilities[convertByte(self.data, 0x14)]
 

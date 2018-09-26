@@ -96,7 +96,8 @@ class MainWindow(QMainWindow):
         self.findLabel("labelNatureValue").setText(pkm.Nature())
         self.findLabel("labelAbilityValue").setText(pkm.Ability())
         self.findLabel("labelItemValue").setText(pkm.HeldItem())
-        self.findLabel("labelPSVValue").setText(colorPSV(pkm.PSV(), self.manager.trainerShinyValue()))
+        self.findLabel("labelPSV").setText("PSV: " + colorPSV(pkm.PSV(), pkm.TSV()))
+        self.findLabel("labelTSV").setText("TSV: " + str(pkm.TSV()))
         self.findLabel("labelHiddenPowerValue").setText(pkm.HiddenPower())
         self.findLabel("labelFriendshipValue").setText(str(pkm.CurrentFriendship()))
         
