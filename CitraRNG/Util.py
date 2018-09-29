@@ -52,3 +52,6 @@ def findLabel(ui, name):
 
 def findLineEdit(ui, name):
     return ui.findChild(QLineEdit, name)
+
+def uint(val):
+    return val & 0xFFFFFFFF

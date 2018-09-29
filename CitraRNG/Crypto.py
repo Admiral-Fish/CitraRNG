@@ -1,5 +1,7 @@
 import struct
 
+from Util import uint
+
 def DecryptArray(encryptedData):
     pv = struct.unpack("<I", encryptedData[0x0:0x4])[0]
     sv = ((pv >> 0xD) & 0x1F) % 24
@@ -15,7 +17,7 @@ def DecryptArray(encryptedData):
 def CryptArray(data, seed, start, end):
     result = bytes()
     for i in range(start, end, 2):
-        seed = (seed * 0x41C64E6D + 0x6073) & 0xFFFFFFFF
+        seed = uint(seed * 0x41C64E6D + 0x6073)
         result += Crypt(data, seed >> 16, i)
     return result
 

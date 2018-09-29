@@ -1,3 +1,5 @@
+from Util import uint
+
 class SFMT:
     def __init__(self, seed):
         self.sfmt = []
@@ -72,6 +74,3 @@ class SFMT:
             b += 4
             if (b >= 624):
                 b = 0
-
-def uint(val):
-    return val & 0xFFFFFFFF
