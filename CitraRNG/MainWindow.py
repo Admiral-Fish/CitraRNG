@@ -1,25 +1,25 @@
+import time
+import threading
+
 from Manager import Manager
-from Util import hexify, colorIV, colorPSV
-from PySide2.QtWidgets import QMainWindow, QComboBox, QPushButton, QLabel
-from PySide2.QtCore import QFile
+from Util import hexify, colorIV, colorPSV, findButton, findComboBox, findLabel, findLineEdit 
+from PySide2.QtWidgets import QMainWindow, QComboBox, QPushButton, QLineEdit, QLabel
+from PySide2.QtCore import QFile, QObject, Signal, Slot
 from PySide2.QtUiTools import QUiLoader
 
 class MainWindow(QMainWindow):
+    update = Signal()
+
     def __init__(self, parent = None):
         super(MainWindow, self).__init__(parent)
         self.loadUi()
         
-        buttonConnect = self.findButton("pushButtonConnect")
-        buttonConnect.clicked.connect(self.connectCitra)
+        findButton(self.ui, "pushButtonConnect").clicked.connect(self.connectCitra)
+        findButton(self.ui, "pushButtonUpdatePokemon").clicked.connect(self.updatePokemon)
+        findButton(self.ui, "pushButtonUpdateMainRNG").clicked.connect(self.updateMainRNG)
+        findButton(self.ui, "pushButtonUpdateEggRNG").clicked.connect(self.updateEggRNG)
 
-        buttonPokemon = self.findButton("pushButtonUpdatePokemon")
-        buttonPokemon.clicked.connect(self.updatePokemon)
-
-        buttonMain = self.findButton("pushButtonUpdateMainRNG")
-        buttonMain.clicked.connect(self.updateMainRNG)
-
-        buttonEgg = self.findButton("pushButtonUpdateEggRNG")
-        buttonEgg.clicked.connect(self.updateEggRNG)
+        self.update.connect(self.updateMainRNG)
 
     def loadUi(self):
         file = QFile("MainWindow.ui")
@@ -30,32 +30,28 @@ class MainWindow(QMainWindow):
         file.close()
 
     def connectCitra(self):
-        comboBox = self.findComboBox("comboBoxGameSelection")
+        comboBox = findComboBox(self.ui, "comboBoxGameSelection")
         index = comboBox.currentIndex()
         self.manager = Manager(index)
 
         if self.manager.isConnected == True:
             self.toggleEnable(True)
-            connectionStatus = self.findLabel("labelStatus")
-            connectionStatus.setText("Connected")
+            findLabel(self.ui, "labelStatus").setText("Connected")
+
+            '''t = threading.Thread(target=self.autoUpdateMain)
+            t.start()
+            self.updateEggRNG()'''
         else:
             self.toggleEnable(False)
-            connectionStatus = self.findLabel("labelStatus")
-            connectionStatus.setText("Connection failed")
+            findLabel(self.ui, "labelStatus").setText("Connection failed")
 
     def toggleEnable(self, flag):
-        comboBoxPokemon = self.findComboBox("comboBoxPokemon")
-        comboBoxPokemon.setEnabled(flag)
+        findComboBox(self.ui, "comboBoxPokemon").setEnabled(flag)
+        findButton(self.ui, "pushButtonUpdatePokemon").setEnabled(flag)
+        findButton(self.ui, "pushButtonUpdateMainRNG").setEnabled(flag)
+        findButton(self.ui, "pushButtonUpdateEggRNG").setEnabled(flag)
 
-        pushButtonPokemon = self.findButton("pushButtonUpdatePokemon")
-        pushButtonPokemon.setEnabled(flag)
-
-        pushButtonMain = self.findButton("pushButtonUpdateMainRNG")
-        pushButtonMain.setEnabled(flag)
-
-        pushButtonEgg = self.findButton("pushButtonUpdateEggRNG")
-        pushButtonEgg.setEnabled(flag)
-
+    @Slot()
     def updateMainRNG(self):
         self.manager.updateFrameCount()
 
@@ -64,70 +60,66 @@ class MainWindow(QMainWindow):
         frame = self.manager.frameCount
         tsv = self.manager.trainerShinyValue()
 
-        self.findLabel("labelInitialSeedValue").setText(hexify(seed))
-        self.findLabel("labelCurrentSeedValue").setText(hexify(curr))
-        self.findLabel("labelFrameValue").setText(str(frame))
-        self.findLabel("labelTSVValue").setText(str(tsv))
+        findLineEdit(self.ui, "lineEditInitialSeed").setText(hexify(seed))
+        findLineEdit(self.ui, "lineEditCurrentSeed").setText(hexify(curr))
+        findLineEdit(self.ui, "lineEditFrame").setText(str(frame))
+        findLineEdit(self.ui, "lineEditTSV").setText(str(tsv))
 
     def updateEggRNG(self):
         values = self.manager.eggStatus()
 
-        eggStatus = self.findLabel("labelEggReadyStatus")
+        eggStatus = findLabel(self.ui, "labelEggReadyStatus")
         if values[0] == 0:
             eggStatus.setText("No egg yet")
         else:
             eggStatus.setText("Egg ready")
 
-        self.findLabel("labelEggSeed3Value").setText(hexify(values[1]))
-        self.findLabel("labelEggSeed2Value").setText(hexify(values[2]))
-        self.findLabel("labelEggSeed1Value").setText(hexify(values[3]))
-        self.findLabel("labelEggSeed0Value").setText(hexify(values[4]))
+        findLineEdit(self.ui, "lineEditEggSeed3").setText(hexify(values[1]))
+        findLineEdit(self.ui, "lineEditEggSeed2").setText(hexify(values[2]))
+        findLineEdit(self.ui, "lineEditEggSeed1").setText(hexify(values[3]))
+        findLineEdit(self.ui, "lineEditEggSeed0").setText(hexify(values[4]))
 
     def updatePokemon(self):
-        index = self.findComboBox("comboBoxPokemon").currentIndex()
+        index = findComboBox(self.ui, "comboBoxPokemon").currentIndex()
 
         if index < 6:
             pkm = self.manager.partyPokemon(index)
         else:
             pkm = self.manager.wildPokemon()
 
-        self.findLabel("labelSpeciesValue").setText(pkm.Species())
-        self.findLabel("labelGenderValue").setText(pkm.Gender())
-        self.findLabel("labelNatureValue").setText(pkm.Nature())
-        self.findLabel("labelAbilityValue").setText(pkm.Ability())
-        self.findLabel("labelItemValue").setText(pkm.HeldItem())
-        self.findLabel("labelPSV").setText("PSV: " + colorPSV(pkm.PSV(), pkm.TSV()))
-        self.findLabel("labelTSV").setText("TSV: " + str(pkm.TSV()))
-        self.findLabel("labelHiddenPowerValue").setText(pkm.HiddenPower())
-        self.findLabel("labelFriendshipValue").setText(str(pkm.CurrentFriendship()))
+        findLabel(self.ui, "labelSpeciesValue").setText(pkm.Species())
+        findLabel(self.ui, "labelGenderValue").setText(pkm.Gender())
+        findLabel(self.ui, "labelNatureValue").setText(pkm.Nature())
+        findLabel(self.ui, "labelAbilityValue").setText(pkm.Ability())
+        findLabel(self.ui, "labelItemValue").setText(pkm.HeldItem())
+        findLabel(self.ui, "labelPSV").setText("PSV: " + colorPSV(pkm.PSV(), pkm.TSV()))
+        findLabel(self.ui, "labelTSV").setText("TSV: " + str(pkm.TSV()))
+        findLabel(self.ui, "labelHiddenPowerValue").setText(pkm.HiddenPower())
+        findLabel(self.ui, "labelFriendshipValue").setText(str(pkm.CurrentFriendship()))
         
-        self.findLabel("labelHPIV").setText("IV: " + colorIV(pkm.IVHP()))
-        self.findLabel("labelAtkIV").setText("IV: " + colorIV(pkm.IVAtk()))
-        self.findLabel("labelDefIV").setText("IV: " + colorIV(pkm.IVDef()))
-        self.findLabel("labelSpAIV").setText("IV: " + colorIV(pkm.IVSpA()))
-        self.findLabel("labelSpDIV").setText("IV: " + colorIV(pkm.IVSpD()))
-        self.findLabel("labelSpeIV").setText("IV: " + colorIV(pkm.IVSpe()))
-        self.findLabel("labelHPEV").setText("EV: " + str(pkm.EVHP()))
-        self.findLabel("labelAtkEV").setText("EV: " + str(pkm.EVAtk()))
-        self.findLabel("labelDefEV").setText("EV: " + str(pkm.EVDef()))
-        self.findLabel("labelSpAEV").setText("EV: " + str(pkm.EVSpA()))
-        self.findLabel("labelSpDEV").setText("EV: " + str(pkm.EVSpD()))
-        self.findLabel("labelSpeEV").setText("EV: " + str(pkm.EVSpe()))
+        findLabel(self.ui, "labelHPIV").setText("IV: " + colorIV(pkm.IVHP()))
+        findLabel(self.ui, "labelAtkIV").setText("IV: " + colorIV(pkm.IVAtk()))
+        findLabel(self.ui, "labelDefIV").setText("IV: " + colorIV(pkm.IVDef()))
+        findLabel(self.ui, "labelSpAIV").setText("IV: " + colorIV(pkm.IVSpA()))
+        findLabel(self.ui, "labelSpDIV").setText("IV: " + colorIV(pkm.IVSpD()))
+        findLabel(self.ui, "labelSpeIV").setText("IV: " + colorIV(pkm.IVSpe()))
+        findLabel(self.ui, "labelHPEV").setText("EV: " + str(pkm.EVHP()))
+        findLabel(self.ui, "labelAtkEV").setText("EV: " + str(pkm.EVAtk()))
+        findLabel(self.ui, "labelDefEV").setText("EV: " + str(pkm.EVDef()))
+        findLabel(self.ui, "labelSpAEV").setText("EV: " + str(pkm.EVSpA()))
+        findLabel(self.ui, "labelSpDEV").setText("EV: " + str(pkm.EVSpD()))
+        findLabel(self.ui, "labelSpeEV").setText("EV: " + str(pkm.EVSpe()))
     
-        self.findLabel("labelMove1Name").setText(pkm.Move1())
-        self.findLabel("labelMove2Name").setText(pkm.Move2())
-        self.findLabel("labelMove3Name").setText(pkm.Move3())
-        self.findLabel("labelMove4Name").setText(pkm.Move4())
-        self.findLabel("labelMove1PP").setText("PP: " + str(pkm.Move1PP()))
-        self.findLabel("labelMove2PP").setText("PP: " + str(pkm.Move2PP()))
-        self.findLabel("labelMove3PP").setText("PP: " + str(pkm.Move3PP()))
-        self.findLabel("labelMove4PP").setText("PP: " + str(pkm.Move4PP()))
+        findLabel(self.ui, "labelMove1Name").setText(pkm.Move1())
+        findLabel(self.ui, "labelMove2Name").setText(pkm.Move2())
+        findLabel(self.ui, "labelMove3Name").setText(pkm.Move3())
+        findLabel(self.ui, "labelMove4Name").setText(pkm.Move4())
+        findLabel(self.ui, "labelMove1PP").setText("PP: " + str(pkm.Move1PP()))
+        findLabel(self.ui, "labelMove2PP").setText("PP: " + str(pkm.Move2PP()))
+        findLabel(self.ui, "labelMove3PP").setText("PP: " + str(pkm.Move3PP()))
+        findLabel(self.ui, "labelMove4PP").setText("PP: " + str(pkm.Move4PP()))
 
-    def findComboBox(self, name):
-        return self.ui.findChild(QComboBox, name)
-
-    def findButton(self, name):
-        return self.ui.findChild(QPushButton, name)
-
-    def findLabel(self, name):
-        return self.ui.findChild(QLabel, name)
+    def autoUpdateMain(self):
+        while self.manager.connection.is_connected() == True:
+            self.update.emit()
+            time.sleep(.75)
