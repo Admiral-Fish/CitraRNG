@@ -2,8 +2,8 @@ import time
 import threading
 
 from Manager import Manager
-from Util import hexify, colorIV, colorPSV, findButton, findComboBox, findLabel, findLineEdit 
-from PySide2.QtWidgets import QMainWindow, QComboBox, QPushButton, QLineEdit, QLabel
+from Util import hexify, colorIV, colorPSV, findButton, findComboBox, findLabel, findLineEdit, findSpinBox
+from PySide2.QtWidgets import QMainWindow, QComboBox, QPushButton, QLineEdit, QLabel, QSpinBox
 from PySide2.QtCore import QFile, QObject, Signal, Slot
 from PySide2.QtUiTools import QUiLoader
 
@@ -13,11 +13,13 @@ class MainWindow(QMainWindow):
     def __init__(self, parent = None):
         super(MainWindow, self).__init__(parent)
         self.loadUi()
+        self.delay = 0.5
         
         findButton(self.ui, "pushButtonConnect").clicked.connect(self.connectCitra)
         findButton(self.ui, "pushButtonUpdatePokemon").clicked.connect(self.updatePokemon)
         findButton(self.ui, "pushButtonUpdateMainRNG").clicked.connect(self.updateMainRNG)
         findButton(self.ui, "pushButtonUpdateEggRNG").clicked.connect(self.updateEggRNG)
+        findSpinBox(self.ui, "spinBoxDelay").valueChanged.connect(self.updateDelay)
 
         self.update.connect(self.updateMainRNG)
 
@@ -120,7 +122,12 @@ class MainWindow(QMainWindow):
         findLabel(self.ui, "labelMove3PP").setText("PP: " + str(pkm.Move3PP()))
         findLabel(self.ui, "labelMove4PP").setText("PP: " + str(pkm.Move4PP()))
 
+    def updateDelay(self):
+        val = findSpinBox(self.ui, "spinBoxDelay").value()
+        if val > 500:
+            self.delay = float(val) / 1000.0
+
     def autoUpdateMain(self):
         while self.manager.connection.is_connected() == True:
             self.update.emit()
-            time.sleep(1)
+            time.sleep(self.delay)

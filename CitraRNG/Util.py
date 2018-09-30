@@ -1,7 +1,7 @@
 import struct
 
 from citra import Citra
-from PySide2.QtWidgets import QPushButton, QLabel, QLineEdit, QComboBox
+from PySide2.QtWidgets import QPushButton, QLabel, QLineEdit, QComboBox, QSpinBox
 
 def convertByte(data, start):
     return struct.unpack("B", data[start:start+1])[0]
@@ -52,6 +52,9 @@ def findLabel(ui, name):
 
 def findLineEdit(ui, name):
     return ui.findChild(QLineEdit, name)
+
+def findSpinBox(ui, name):
+    return ui.findChild(QSpinBox, name)
 
 def uint(val):
     return val & 0xFFFFFFFF
