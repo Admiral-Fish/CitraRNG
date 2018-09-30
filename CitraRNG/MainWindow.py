@@ -38,9 +38,10 @@ class MainWindow(QMainWindow):
             self.toggleEnable(True)
             findLabel(self.ui, "labelStatus").setText("Connected")
 
-            '''t = threading.Thread(target=self.autoUpdateMain)
+            t = threading.Thread(target=self.autoUpdateMain)
+            time.sleep(1)
             t.start()
-            self.updateEggRNG()'''
+            self.updateEggRNG()
         else:
             self.toggleEnable(False)
             findLabel(self.ui, "labelStatus").setText("Connection failed")
@@ -122,4 +123,4 @@ class MainWindow(QMainWindow):
     def autoUpdateMain(self):
         while self.manager.connection.is_connected() == True:
             self.update.emit()
-            time.sleep(.75)
+            time.sleep(1)
