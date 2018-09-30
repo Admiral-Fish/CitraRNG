@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>CitraRNG 1.1.2</string>
+   <string>CitraRNG 1.1.3</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -53,13 +53,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelEggSeed3">
-         <property name="text">
-          <string>[3]</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="0">
         <widget class="QLabel" name="labelEggSeed1">
          <property name="text">
@@ -74,20 +67,17 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="pushButtonUpdateEggRNG">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Update</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="2">
         <widget class="QLabel" name="labelEggSeed0">
          <property name="text">
           <string>[0]</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelEggSeed3">
+         <property name="text">
+          <string>[3]</string>
          </property>
         </widget>
        </item>
@@ -177,7 +167,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1" colspan="2">
+       <item row="0" column="1">
         <widget class="QLineEdit" name="lineEditInitialSeed">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -200,7 +190,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1" colspan="2">
+       <item row="1" column="1">
         <widget class="QLineEdit" name="lineEditCurrentSeed">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -223,7 +213,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1" colspan="2">
+       <item row="2" column="1">
         <widget class="QLineEdit" name="lineEditFrame">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -243,7 +233,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1" colspan="2">
+       <item row="3" column="1">
         <widget class="QLineEdit" name="lineEditTSV">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -260,24 +250,17 @@
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QPushButton" name="pushButtonUpdateMainRNG">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+        <widget class="QLabel" name="labelUpdateDelay">
          <property name="text">
-          <string>Update</string>
+          <string>Auto update delay(milliseconds):</string>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLabel" name="labelUpdateDelay">
-         <property name="text">
-          <string>Auto update delay(ms):</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
         <widget class="QSpinBox" name="spinBoxDelay">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="minimum">
           <number>300</number>
          </property>

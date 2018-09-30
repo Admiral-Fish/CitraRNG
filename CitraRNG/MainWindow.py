@@ -17,11 +17,10 @@ class MainWindow(QMainWindow):
         
         findButton(self.ui, "pushButtonConnect").clicked.connect(self.connectCitra)
         findButton(self.ui, "pushButtonUpdatePokemon").clicked.connect(self.updatePokemon)
-        findButton(self.ui, "pushButtonUpdateMainRNG").clicked.connect(self.updateMainRNG)
-        findButton(self.ui, "pushButtonUpdateEggRNG").clicked.connect(self.updateEggRNG)
         findSpinBox(self.ui, "spinBoxDelay").valueChanged.connect(self.updateDelay)
 
         self.update.connect(self.updateMainRNG)
+        self.update.connect(self.updateEggRNG)
 
     def loadUi(self):
         file = QFile("MainWindow.ui")
@@ -51,8 +50,7 @@ class MainWindow(QMainWindow):
     def toggleEnable(self, flag):
         findComboBox(self.ui, "comboBoxPokemon").setEnabled(flag)
         findButton(self.ui, "pushButtonUpdatePokemon").setEnabled(flag)
-        findButton(self.ui, "pushButtonUpdateMainRNG").setEnabled(flag)
-        findButton(self.ui, "pushButtonUpdateEggRNG").setEnabled(flag)
+        findSpinBox(self.ui, "spinBoxDelay").setEnabled(flag)
 
     @Slot()
     def updateMainRNG(self):
@@ -123,7 +121,7 @@ class MainWindow(QMainWindow):
 
     def updateDelay(self):
         val = findSpinBox(self.ui, "spinBoxDelay").value()
-        if val > 500:
+        if val >= 300:
             self.delay = float(val) / 1000.0
 
     def autoUpdateMain(self):
