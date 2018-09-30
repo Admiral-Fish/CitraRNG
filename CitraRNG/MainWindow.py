@@ -56,17 +56,16 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def updateMainRNG(self):
-        self.manager.updateFrameCount()
+        values = self.manager.updateFrameCount()
 
-        seed = self.manager.initialSeed
-        curr = self.manager.currentSeed
-        frame = self.manager.frameCount
-        tsv = self.manager.trainerShinyValue()
+        # Check to see if frame changed at all
+        if values[0] == 0:
+            return
 
-        findLineEdit(self.ui, "lineEditInitialSeed").setText(hexify(seed))
-        findLineEdit(self.ui, "lineEditCurrentSeed").setText(hexify(curr))
-        findLineEdit(self.ui, "lineEditFrame").setText(str(frame))
-        findLineEdit(self.ui, "lineEditTSV").setText(str(tsv))
+        findLineEdit(self.ui, "lineEditInitialSeed").setText(hexify(values[1]))
+        findLineEdit(self.ui, "lineEditCurrentSeed").setText(hexify(values[2]))
+        findLineEdit(self.ui, "lineEditFrame").setText(str(values[3]))
+        findLineEdit(self.ui, "lineEditTSV").setText(str(values[4]))
 
     def updateEggRNG(self):
         values = self.manager.eggStatus()

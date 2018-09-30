@@ -45,13 +45,6 @@ class Manager:
 
             self.trainerID = 0x33012818
 
-        '''if self.isConnected == True:
-            self.initialSeed = readDWord(self.connection, self.seedAddress)
-            self.sfmt = SFMT(self.initialSeed)
-            self.currentSeed = 0
-            self.frameCount = -1
-            self.updateFrameCount()'''
-
         self.initialSeed = -1
 
     def partyPokemon(self, index):
@@ -92,10 +85,14 @@ class Manager:
             self.frameCount = -1
         
         currSeed = self.getCurrentSeed()
+        difference = self.frameCount
 
         while currSeed != self.currentSeed:
             self.currentSeed = self.sfmt.NextULong()
             self.frameCount += 1
+
+        difference = self.frameCount - difference
+        return [ difference, self.initialSeed, self.currentSeed, self.frameCount, self.trainerShinyValue() ]
 
     def getCurrentSeed(self):
         index = readDWord(self.connection, self.sfmtIndex)
