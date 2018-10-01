@@ -16,6 +16,7 @@ class MainWindow(QMainWindow):
         self.delay = 0.5
         
         findButton(self.ui, "pushButtonConnect").clicked.connect(self.connectCitra)
+        findButton(self.ui, "pushButtonDisconnect").clicked.connect(self.disconnectCitra)
         findButton(self.ui, "pushButtonUpdatePokemon").clicked.connect(self.updatePokemon)
         findSpinBox(self.ui, "spinBoxDelay").valueChanged.connect(self.updateDelay)
 
@@ -34,18 +35,30 @@ class MainWindow(QMainWindow):
         comboBox = findComboBox(self.ui, "comboBoxGameSelection")
         index = comboBox.currentIndex()
         self.manager = Manager(index)
+        self.allowUpdate = True
 
         if self.manager.isConnected == True:
             self.toggleEnable(True)
             findLabel(self.ui, "labelStatus").setText("Connected")
+            findButton(self.ui, "pushButtonConnect").setEnabled(False)
+            findButton(self.ui, "pushButtonDisconnect").setEnabled(True)
 
             t = threading.Thread(target=self.autoUpdateMain)
             time.sleep(1)
             t.start()
-            self.updateEggRNG()
         else:
             self.toggleEnable(False)
             findLabel(self.ui, "labelStatus").setText("Connection failed")
+
+    def disconnectCitra(self):
+        self.allowUpdate = False
+        self.manager = -1
+
+        self.toggleEnable(False)
+        findButton(self.ui, "pushButtonConnect").setEnabled(True)
+        findButton(self.ui, "pushButtonDisconnect").setEnabled(False)
+
+        findLabel(self.ui, "labelStatus").setText("Disconnected")
 
     def toggleEnable(self, flag):
         findComboBox(self.ui, "comboBoxPokemon").setEnabled(flag)
@@ -125,6 +138,6 @@ class MainWindow(QMainWindow):
             self.delay = float(val) / 1000.0
 
     def autoUpdateMain(self):
-        while self.manager.connection.is_connected() == True:
+        while self.allowUpdate == True:
             self.update.emit()
             time.sleep(self.delay)
