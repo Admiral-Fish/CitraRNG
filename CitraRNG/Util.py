@@ -1,7 +1,6 @@
 import struct
 
 from citra import Citra
-from PySide2.QtWidgets import QPushButton, QLabel, QLineEdit, QComboBox, QSpinBox
 
 def convertByte(data, start):
     return struct.unpack("B", data[start:start+1])[0]
@@ -40,21 +39,6 @@ def colorPSV(psv, tsv):
         return "<b><font color ='green'>" + str(psv) + "</font></b>"
     else:
         return str(psv)
-
-def findComboBox(ui, name):
-    return ui.findChild(QComboBox, name)
-
-def findButton(ui, name):
-    return ui.findChild(QPushButton, name)
-
-def findLabel(ui, name):
-    return ui.findChild(QLabel, name)
-
-def findLineEdit(ui, name):
-    return ui.findChild(QLineEdit, name)
-
-def findSpinBox(ui, name):
-    return ui.findChild(QSpinBox, name)
 
 def uint(val):
     return val & 0xFFFFFFFF

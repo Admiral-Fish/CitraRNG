@@ -2,68 +2,72 @@ import time
 import threading
 
 from Manager import Manager
-from Util import hexify, colorIV, colorPSV, findButton, findComboBox, findLabel, findLineEdit, findSpinBox
-from PySide2.QtWidgets import QMainWindow, QComboBox, QPushButton, QLineEdit, QLabel, QSpinBox
-from PySide2.QtCore import QFile, QObject, Signal, Slot
-from PySide2.QtUiTools import QUiLoader
+from Util import hexify, colorIV, colorPSV
+from ui_MainWindow import Ui_MainWindow
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtCore import QSettings, Signal, Slot
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     update = Signal()
 
     def __init__(self, parent = None):
         super(MainWindow, self).__init__(parent)
-        self.loadUi()
-        self.delay = 0.5
+        self.setupUi(self)
+        self.loadSettings()
         
-        findButton(self.ui, "pushButtonConnect").clicked.connect(self.connectCitra)
-        findButton(self.ui, "pushButtonDisconnect").clicked.connect(self.disconnectCitra)
-        findButton(self.ui, "pushButtonUpdatePokemon").clicked.connect(self.updatePokemon)
-        findSpinBox(self.ui, "spinBoxDelay").valueChanged.connect(self.updateDelay)
+        self.pushButtonConnect.clicked.connect(self.connectCitra)
+        self.pushButtonDisconnect.clicked.connect(self.disconnectCitra)
+        self.pushButtonUpdatePokemon.clicked.connect(self.updatePokemon)
+        self.spinBoxDelay.valueChanged.connect(self.updateDelay)
 
         self.update.connect(self.updateMainRNG)
         self.update.connect(self.updateEggRNG)
 
-    def loadUi(self):
-        file = QFile("MainWindow.ui")
-        file.open(QFile.ReadOnly)
-        loader = QUiLoader()
-        self.ui = loader.load(file)
-        self.ui.show()
-        file.close()
+    def closeEvent(self, event):
+        self.saveSettings()
+        #return super().closeEvent(event)
+
+    def saveSettings(self):
+        settings = QSettings()
+        settings.setValue("delay", self.spinBoxDelay.value())
+
+    def loadSettings(self):
+        settings = QSettings()
+        if settings.contains("delay"):
+            self.delay = settings.value("delay")
+            self.spinBoxDelay.setValue(self.delay)
+        else:
+            self.delay = 0.5
+            self.spinBoxDelay.setValue(self.delay)
 
     def connectCitra(self):
-        comboBox = findComboBox(self.ui, "comboBoxGameSelection")
-        index = comboBox.currentIndex()
+        index = self.comboBoxGameSelection.currentIndex()
         self.manager = Manager(index)
         self.allowUpdate = True
 
-        if self.manager.isConnected == True:
-            self.toggleEnable(True)
-            findLabel(self.ui, "labelStatus").setText("Connected")
-            findButton(self.ui, "pushButtonConnect").setEnabled(False)
-            findButton(self.ui, "pushButtonDisconnect").setEnabled(True)
+        self.toggleEnable(True)
+        self.labelStatus.setText("Connected")
+        self.pushButtonConnect.setEnabled(False)
+        self.pushButtonDisconnect.setEnabled(True)
 
-            t = threading.Thread(target=self.autoUpdateMain)
-            time.sleep(1)
-            t.start()
-        else:
-            self.toggleEnable(False)
-            findLabel(self.ui, "labelStatus").setText("Connection failed")
+        t = threading.Thread(target=self.autoUpdateMain)
+        time.sleep(1)
+        t.start()
 
     def disconnectCitra(self):
         self.allowUpdate = False
         self.manager = -1
 
         self.toggleEnable(False)
-        findButton(self.ui, "pushButtonConnect").setEnabled(True)
-        findButton(self.ui, "pushButtonDisconnect").setEnabled(False)
+        self.pushButtonConnect.setEnabled(True)
+        self.pushButtonDisconnect.setEnabled(False)
 
-        findLabel(self.ui, "labelStatus").setText("Disconnected")
+        self.labelStatus.setText("Disconnected")
 
     def toggleEnable(self, flag):
-        findComboBox(self.ui, "comboBoxPokemon").setEnabled(flag)
-        findButton(self.ui, "pushButtonUpdatePokemon").setEnabled(flag)
-        findSpinBox(self.ui, "spinBoxDelay").setEnabled(flag)
+        self.comboBoxPokemon.setEnabled(flag)
+        self.pushButtonUpdatePokemon.setEnabled(flag)
+        self.spinBoxDelay.setEnabled(flag)
 
     @Slot()
     def updateMainRNG(self):
@@ -73,67 +77,66 @@ class MainWindow(QMainWindow):
         if values[0] == 0:
             return
 
-        findLineEdit(self.ui, "lineEditInitialSeed").setText(hexify(values[1]))
-        findLineEdit(self.ui, "lineEditCurrentSeed").setText(hexify(values[2]))
-        findLineEdit(self.ui, "lineEditFrame").setText(str(values[3]))
-        findLineEdit(self.ui, "lineEditTSV").setText(str(values[4]))
+        self.lineEditInitialSeed.setText(hexify(values[1]))
+        self.lineEditCurrentSeed.setText(hexify(values[2]))
+        self.lineEditFrame.setText(str(values[3]))
+        self.lineEditTSV.setText(str(values[4]))
 
     def updateEggRNG(self):
         values = self.manager.eggStatus()
 
-        eggStatus = findLabel(self.ui, "labelEggReadyStatus")
         if values[0] == 0:
-            eggStatus.setText("No egg yet")
+            self.labelEggReadyStatus.setText("No egg yet")
         else:
-            eggStatus.setText("Egg ready")
+            self.labelEggReadyStatus.setText("Egg ready")
 
-        findLineEdit(self.ui, "lineEditEggSeed3").setText(hexify(values[1]))
-        findLineEdit(self.ui, "lineEditEggSeed2").setText(hexify(values[2]))
-        findLineEdit(self.ui, "lineEditEggSeed1").setText(hexify(values[3]))
-        findLineEdit(self.ui, "lineEditEggSeed0").setText(hexify(values[4]))
+        self.lineEditEggSeed3.setText(hexify(values[1]))
+        self.lineEditEggSeed2.setText(hexify(values[2]))
+        self.lineEditEggSeed1.setText(hexify(values[3]))
+        self.lineEditEggSeed0.setText(hexify(values[4]))
 
     def updatePokemon(self):
-        index = findComboBox(self.ui, "comboBoxPokemon").currentIndex()
+        index = self.comboBoxPokemon.currentIndex()
 
         if index < 6:
             pkm = self.manager.partyPokemon(index)
         else:
             pkm = self.manager.wildPokemon()
 
-        findLabel(self.ui, "labelSpeciesValue").setText(pkm.Species())
-        findLabel(self.ui, "labelGenderValue").setText(pkm.Gender())
-        findLabel(self.ui, "labelNatureValue").setText(pkm.Nature())
-        findLabel(self.ui, "labelAbilityValue").setText(pkm.Ability())
-        findLabel(self.ui, "labelItemValue").setText(pkm.HeldItem())
-        findLabel(self.ui, "labelPSV").setText("PSV: " + colorPSV(pkm.PSV(), pkm.TSV()))
-        findLabel(self.ui, "labelTSV").setText("TSV: " + str(pkm.TSV()))
-        findLabel(self.ui, "labelHiddenPowerValue").setText(pkm.HiddenPower())
-        findLabel(self.ui, "labelFriendshipValue").setText(str(pkm.CurrentFriendship()))
+        self.labelSpeciesValue.setText(pkm.Species())
+        self.labelGenderValue.setText(pkm.Gender())
+        self.labelNatureValue.setText(pkm.Nature())
+        self.labelAbilityValue.setText(pkm.Ability())
+        self.labelItemValue.setText(pkm.HeldItem())
+        self.labelPSV.setText("PSV: " + colorPSV(pkm.PSV(), pkm.TSV()))
+        self.labelTSV.setText("TSV: " + str(pkm.TSV()))
+        self.labelHiddenPowerValue.setText(pkm.HiddenPower())
+        self.labelFriendshipValue.setText(str(pkm.CurrentFriendship()))
         
-        findLabel(self.ui, "labelHPIV").setText("IV: " + colorIV(pkm.IVHP()))
-        findLabel(self.ui, "labelAtkIV").setText("IV: " + colorIV(pkm.IVAtk()))
-        findLabel(self.ui, "labelDefIV").setText("IV: " + colorIV(pkm.IVDef()))
-        findLabel(self.ui, "labelSpAIV").setText("IV: " + colorIV(pkm.IVSpA()))
-        findLabel(self.ui, "labelSpDIV").setText("IV: " + colorIV(pkm.IVSpD()))
-        findLabel(self.ui, "labelSpeIV").setText("IV: " + colorIV(pkm.IVSpe()))
-        findLabel(self.ui, "labelHPEV").setText("EV: " + str(pkm.EVHP()))
-        findLabel(self.ui, "labelAtkEV").setText("EV: " + str(pkm.EVAtk()))
-        findLabel(self.ui, "labelDefEV").setText("EV: " + str(pkm.EVDef()))
-        findLabel(self.ui, "labelSpAEV").setText("EV: " + str(pkm.EVSpA()))
-        findLabel(self.ui, "labelSpDEV").setText("EV: " + str(pkm.EVSpD()))
-        findLabel(self.ui, "labelSpeEV").setText("EV: " + str(pkm.EVSpe()))
+        self.labelHPIV.setText("IV: " + colorIV(pkm.IVHP()))
+        self.labelAtkIV.setText("IV: " + colorIV(pkm.IVAtk()))
+        self.labelDefIV.setText("IV: " + colorIV(pkm.IVDef()))
+        self.labelSpAIV.setText("IV: " + colorIV(pkm.IVSpA()))
+        self.labelSpDIV.setText("IV: " + colorIV(pkm.IVSpD()))
+        self.labelSpeIV.setText("IV: " + colorIV(pkm.IVSpe()))
+        self.labelHPEV.setText("EV: " + str(pkm.EVHP()))
+        self.labelAtkEV.setText("EV: " + str(pkm.EVAtk()))
+        self.labelDefEV.setText("EV: " + str(pkm.EVDef()))
+        self.labelSpAEV.setText("EV: " + str(pkm.EVSpA()))
+        self.labelSpDEV.setText("EV: " + str(pkm.EVSpD()))
+        self.labelSpeEV.setText("EV: " + str(pkm.EVSpe()))
     
-        findLabel(self.ui, "labelMove1Name").setText(pkm.Move1())
-        findLabel(self.ui, "labelMove2Name").setText(pkm.Move2())
-        findLabel(self.ui, "labelMove3Name").setText(pkm.Move3())
-        findLabel(self.ui, "labelMove4Name").setText(pkm.Move4())
-        findLabel(self.ui, "labelMove1PP").setText("PP: " + str(pkm.Move1PP()))
-        findLabel(self.ui, "labelMove2PP").setText("PP: " + str(pkm.Move2PP()))
-        findLabel(self.ui, "labelMove3PP").setText("PP: " + str(pkm.Move3PP()))
-        findLabel(self.ui, "labelMove4PP").setText("PP: " + str(pkm.Move4PP()))
+        self.labelMove1Name.setText(pkm.Move1())
+        self.labelMove2Name.setText(pkm.Move2())
+        self.labelMove3Name.setText(pkm.Move3())
+        self.labelMove4Name.setText(pkm.Move4())
+        self.labeMove1PP.setText("PP: " + str(pkm.Move1PP()))
+        self.labelMove2PP.setText("PP: " + str(pkm.Move2PP()))
+        self.labelMove3PP.setText("PP: " + str(pkm.Move3PP()))
+        self.labelMove4PP.setText("PP: " + str(pkm.Move4PP()))
 
     def updateDelay(self):
-        val = findSpinBox(self.ui, "spinBoxDelay").value()
+        val = self.spinBoxDelay.value()
         if val >= 300:
             self.delay = float(val) / 1000.0
 

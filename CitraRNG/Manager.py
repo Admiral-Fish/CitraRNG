@@ -11,13 +11,6 @@ USUM = 1
 class Manager:
     def __init__(self, game):
         self.connection = Citra()
-        
-        # is_connected does not seem to work
-        if self.connection.is_connected():
-            self.isConnected = True
-        else:
-            self.isConnected = False
-
         self.currentGame = game
 
         if self.currentGame == SM:
