@@ -3,8 +3,8 @@
 # Form implementation generated from reading ui file 'MainWindow.ui',
 # licensing of 'MainWindow.ui' applies.
 #
-# Created: Mon Oct  1 19:36:09 2018
-#      by: pyside2-uic  running on PySide2 5.11.1
+# Created: Mon Oct  1 20:49:14 2018
+#      by: pyside2-uic  running on PySide2 5.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
