@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'MainWindow.ui',
 # licensing of 'MainWindow.ui' applies.
 #
-# Created: Mon Oct  1 20:49:14 2018
+# Created: Sat Oct  6 20:28:04 2018
 #      by: pyside2-uic  running on PySide2 5.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -389,7 +389,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "CitraRNG 1.2.0", None, -1))
+        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "CitraRNG 1.2.1", None, -1))
         self.groupBoxEggRNG.setTitle(QtWidgets.QApplication.translate("MainWindow", "Egg RNG", None, -1))
         self.labelEggReadyStatus.setText(QtWidgets.QApplication.translate("MainWindow", "No egg yet", None, -1))
         self.labelEggReady.setText(QtWidgets.QApplication.translate("MainWindow", "Egg Ready:", None, -1))

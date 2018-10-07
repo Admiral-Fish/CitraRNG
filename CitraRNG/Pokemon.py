@@ -56,13 +56,13 @@ class Pokemon:
         return convertByte(self.data, 0x20)
     
     def EVSpA(self):
-        return convertByte(self.data, 0x21)
-    
-    def EVSpD(self):
         return convertByte(self.data, 0x22)
     
-    def EVSpe(self):
+    def EVSpD(self):
         return convertByte(self.data, 0x23)
+    
+    def EVSpe(self):
+        return convertByte(self.data, 0x21)
 
     def Move1(self):
         return moves[convertWord(self.data, 0x5A)]
