@@ -18,7 +18,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButtonConnect.clicked.connect(self.connectCitra)
         self.pushButtonDisconnect.clicked.connect(self.disconnectCitra)
         self.pushButtonUpdatePokemon.clicked.connect(self.updatePokemon)
-        self.spinBoxDelay.valueChanged.connect(self.updateDelay)
+        self.doubleSpinBoxDelay.valueChanged.connect(self.updateDelay)
 
         self.update.connect(self.updateMainRNG)
         self.update.connect(self.updateEggRNG)
@@ -29,16 +29,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def saveSettings(self):
         settings = QSettings()
-        settings.setValue("delay", self.spinBoxDelay.value())
+        settings.setValue("delay", self.doubleSpinBoxDelay.value())
 
     def loadSettings(self):
         settings = QSettings()
-        if settings.contains("delay"):
-            self.delay = settings.value("delay")
-            self.spinBoxDelay.setValue(self.delay)
-        else:
-            self.delay = 0.5
-            self.spinBoxDelay.setValue(self.delay)
+        self.delay = float(settings.value("delay", 0.5))
+        self.doubleSpinBoxDelay.setValue(self.delay)
 
     def connectCitra(self):
         index = self.comboBoxGameSelection.currentIndex()
@@ -50,13 +46,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButtonConnect.setEnabled(False)
         self.pushButtonDisconnect.setEnabled(True)
 
-        t = threading.Thread(target=self.autoUpdateMain)
+        t = threading.Thread(target=self.autoUpdate)
         time.sleep(1)
         t.start()
 
     def disconnectCitra(self):
         self.allowUpdate = False
-        self.manager = -1
+        self.manager = None
 
         self.toggleEnable(False)
         self.pushButtonConnect.setEnabled(True)
@@ -67,7 +63,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def toggleEnable(self, flag):
         self.comboBoxPokemon.setEnabled(flag)
         self.pushButtonUpdatePokemon.setEnabled(flag)
-        self.spinBoxDelay.setEnabled(flag)
+        self.doubleSpinBoxDelay.setEnabled(flag)
 
     @Slot()
     def updateMainRNG(self):
@@ -130,17 +126,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.labelMove2Name.setText(pkm.Move2())
         self.labelMove3Name.setText(pkm.Move3())
         self.labelMove4Name.setText(pkm.Move4())
-        self.labeMove1PP.setText("PP: " + str(pkm.Move1PP()))
+        self.labelMove1PP.setText("PP: " + str(pkm.Move1PP()))
         self.labelMove2PP.setText("PP: " + str(pkm.Move2PP()))
         self.labelMove3PP.setText("PP: " + str(pkm.Move3PP()))
         self.labelMove4PP.setText("PP: " + str(pkm.Move4PP()))
 
     def updateDelay(self):
-        val = self.spinBoxDelay.value()
-        if val >= 300:
-            self.delay = float(val) / 1000.0
+        val = self.doubleSpinBoxDelay.value()
+        self.delay = val
 
-    def autoUpdateMain(self):
+    def autoUpdate(self):
         while self.allowUpdate == True:
             self.update.emit()
             time.sleep(self.delay)

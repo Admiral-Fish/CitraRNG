@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'MainWindow.ui',
 # licensing of 'MainWindow.ui' applies.
 #
-# Created: Sat Oct  6 20:28:04 2018
+# Created: Mon Oct  8 10:49:05 2018
 #      by: pyside2-uic  running on PySide2 5.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -187,13 +187,6 @@ class Ui_MainWindow(object):
         self.labelUpdateDelay = QtWidgets.QLabel(self.groupBoxConnection)
         self.labelUpdateDelay.setObjectName("labelUpdateDelay")
         self.gridLayout_2.addWidget(self.labelUpdateDelay, 1, 0, 1, 1)
-        self.spinBoxDelay = QtWidgets.QSpinBox(self.groupBoxConnection)
-        self.spinBoxDelay.setEnabled(False)
-        self.spinBoxDelay.setMinimum(300)
-        self.spinBoxDelay.setMaximum(2000)
-        self.spinBoxDelay.setProperty("value", 500)
-        self.spinBoxDelay.setObjectName("spinBoxDelay")
-        self.gridLayout_2.addWidget(self.spinBoxDelay, 1, 1, 1, 1)
         self.labelStatus = QtWidgets.QLabel(self.groupBoxConnection)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(1)
@@ -202,6 +195,12 @@ class Ui_MainWindow(object):
         self.labelStatus.setSizePolicy(sizePolicy)
         self.labelStatus.setObjectName("labelStatus")
         self.gridLayout_2.addWidget(self.labelStatus, 1, 2, 1, 1)
+        self.doubleSpinBoxDelay = QtWidgets.QDoubleSpinBox(self.groupBoxConnection)
+        self.doubleSpinBoxDelay.setEnabled(False)
+        self.doubleSpinBoxDelay.setMinimum(0.5)
+        self.doubleSpinBoxDelay.setMaximum(2.0)
+        self.doubleSpinBoxDelay.setObjectName("doubleSpinBoxDelay")
+        self.gridLayout_2.addWidget(self.doubleSpinBoxDelay, 1, 1, 1, 1)
         self.gridLayout.addWidget(self.groupBoxConnection, 0, 0, 1, 2)
         self.groupBoxPokemon = QtWidgets.QGroupBox(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -389,7 +388,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "CitraRNG 1.2.1", None, -1))
+        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "CitraRNG 1.2.2", None, -1))
         self.groupBoxEggRNG.setTitle(QtWidgets.QApplication.translate("MainWindow", "Egg RNG", None, -1))
         self.labelEggReadyStatus.setText(QtWidgets.QApplication.translate("MainWindow", "No egg yet", None, -1))
         self.labelEggReady.setText(QtWidgets.QApplication.translate("MainWindow", "Egg Ready:", None, -1))
@@ -407,7 +406,7 @@ class Ui_MainWindow(object):
         self.comboBoxGameSelection.setItemText(1, QtWidgets.QApplication.translate("MainWindow", "Ultra Sun/Ultra Moon", None, -1))
         self.pushButtonConnect.setText(QtWidgets.QApplication.translate("MainWindow", "Connect", None, -1))
         self.pushButtonDisconnect.setText(QtWidgets.QApplication.translate("MainWindow", "Disconnect", None, -1))
-        self.labelUpdateDelay.setText(QtWidgets.QApplication.translate("MainWindow", "Auto update delay(milliseconds):", None, -1))
+        self.labelUpdateDelay.setText(QtWidgets.QApplication.translate("MainWindow", "Auto update delay(seconds):", None, -1))
         self.labelStatus.setText(QtWidgets.QApplication.translate("MainWindow", "Status: Not Connected", None, -1))
         self.groupBoxPokemon.setTitle(QtWidgets.QApplication.translate("MainWindow", "Pokemon", None, -1))
         self.labelSpecies.setText(QtWidgets.QApplication.translate("MainWindow", "Species:", None, -1))

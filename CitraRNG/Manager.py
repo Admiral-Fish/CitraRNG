@@ -38,7 +38,7 @@ class Manager:
 
             self.trainerID = 0x33012818
 
-        self.initialSeed = -1
+        self.initialSeed = None
 
     def partyPokemon(self, index):
         address = self.partyAddress + (index * 484)
@@ -71,7 +71,7 @@ class Manager:
         return [ val, seed3, seed2, seed1, seed0 ]
 
     def updateFrameCount(self):
-        if self.initialSeed == -1:
+        if self.initialSeed is None:
             self.initialSeed = readDWord(self.connection, self.seedAddress)
             self.sfmt = SFMT(self.initialSeed)
             self.currentSeed = 0
