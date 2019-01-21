@@ -3,8 +3,11 @@ from Crypto import DecryptArray
 from Util import convertByte, convertWord, convertDWord
 
 class Pokemon:
-    def __init__(self, encryptedData):
-        self.data = DecryptArray(encryptedData)
+    def __init__(self, data, flag = True):
+        if flag:
+            self.data = DecryptArray(data)
+        else:
+            self.data = data
 
     def EncryptionConstant(self):
         return convertDWord(self.data, 0x0)

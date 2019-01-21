@@ -47,8 +47,7 @@ class Manager:
         statsData = self.connection.read_memory(address + 344, 22)
         data = blockData + statsData
 
-        pkm = Pokemon(data)
-        return pkm
+        return Pokemon(data)
 
     def wildPokemon(self):
         address = self.wildAddress
@@ -57,8 +56,7 @@ class Manager:
         statsData = self.connection.read_memory(address + 344, 22)
         data = blockData + statsData
 
-        pkm = Pokemon(data)
-        return pkm
+        return Pokemon(data)
 
     def eggStatus(self):
         val = readDWord(self.connection, self.eggReady)
@@ -70,13 +68,15 @@ class Manager:
 
         return [ val, seed3, seed2, seed1, seed0 ]
 
-    def updateFrameCount(self):
-        if self.initialSeed is None:
-            self.initialSeed = readDWord(self.connection, self.seedAddress)
-            self.sfmt = SFMT(self.initialSeed)
-            self.currentSeed = 0
-            self.frameCount = -1
-        
+    def readInitialSeed(self):
+        self.initialSeed = readDWord(self.connection, self.seedAddress)
+        self.sfmt = SFMT(self.initialSeed)
+        self.currentSeed = 0
+        self.frameCount = -1
+
+        return self.initialSeed
+
+    def updateFrameCount(self):        
         currSeed = self.getCurrentSeed()
         difference = self.frameCount
 

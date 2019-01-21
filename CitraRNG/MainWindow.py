@@ -4,7 +4,7 @@ import threading
 from Manager import Manager
 from Util import hexify, colorIV, colorPSV
 from ui_MainWindow import Ui_MainWindow
-from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMainWindow, QMessageBox
 from PySide2.QtCore import QSettings, Signal, Slot
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -39,6 +39,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def connectCitra(self):
         index = self.comboBoxGameSelection.currentIndex()
         self.manager = Manager(index)
+
+        seed = self.manager.readInitialSeed()
+        if seed == 0:
+            message = QMessageBox()
+            message.setText("Initial seed not valid.\nCheck that you are using the correct game or the latest version of the game")
+            message.exec_()
+
+            self.manager = None
+            return
+
         self.allowUpdate = True
 
         self.toggleEnable(True)
