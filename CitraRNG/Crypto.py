@@ -49,14 +49,16 @@ def DecryptArray(encryptedData):
 def CryptArray(data, seed, start, end):
     result = bytes()
 
+    step = seed
     for i in range(start, end, 2):
         step = uint(step * 0x41C64E6D + 0x6073)
-        result += Crypt(data[i:i+1], step >> 16)
+        result += Crypt(data[i:i+2], step >> 16)
 
+    step = seed
     if (len(data) > end):
         for i in range(end, len(data), 2):
             step = uint(step * 0x41C64E6D + 0x6073)
-            result += Crypt(data[i:i+1], step >> 16)
+            result += Crypt(data[i:i+2], step >> 16)
 
     return result
 
@@ -76,7 +78,7 @@ def ShuffleArray(data, sv):
     result = bytes()
 
     for block in range(4):
-        start = 8 + 56 * blockPosition[block + index]
+        start = 56 * blockPosition[block + index]
         end = start + 56
         result += data[start:end]
     return result
