@@ -37,32 +37,32 @@ blockPosition = [ 0, 1, 2, 3,
     1, 0, 2, 3,
     1, 0, 3, 2 ]
 
-def DecryptArray(encryptedData):
+def decryptArray(encryptedData):
     pv = struct.unpack("<I", encryptedData[0x0:0x4])[0]
     sv = (pv >> 13) & 31
 
-    data = CryptArray(encryptedData, pv, 8, 232)
-    data = ShuffleArray(data, sv)
+    data = cryptArray(encryptedData, pv, 8, 232)
+    data = shuffleArray(data, sv)
 
     return encryptedData[0:8] + data
 
-def CryptArray(data, seed, start, end):
+def cryptArray(data, seed, start, end):
     result = bytes()
 
     step = seed
     for i in range(start, end, 2):
         step = uint(step * 0x41C64E6D + 0x6073)
-        result += Crypt(data[i:i+2], step >> 16)
+        result += crypt(data[i:i+2], step >> 16)
 
     step = seed
     if (len(data) > end):
         for i in range(end, len(data), 2):
             step = uint(step * 0x41C64E6D + 0x6073)
-            result += Crypt(data[i:i+2], step >> 16)
+            result += crypt(data[i:i+2], step >> 16)
 
     return result
 
-def Crypt(data, seed):
+def crypt(data, seed):
     value = data[0]
     value ^= (seed & 0xFF)
     result = struct.pack("B", value)
@@ -73,7 +73,7 @@ def Crypt(data, seed):
 
     return result
 
-def ShuffleArray(data, sv):
+def shuffleArray(data, sv):
     index = sv * 4
     result = bytes()
 

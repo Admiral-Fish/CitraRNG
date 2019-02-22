@@ -1,5 +1,3 @@
-import time
-
 from SFMT import SFMT
 from Pokemon import Pokemon
 from Util import readDWord
@@ -13,6 +11,10 @@ class Manager:
         self.connection = Citra()
         self.currentGame = game
 
+        self.getOffsets()
+        self.initialSeed = None
+		
+    def getOffsets(self):
         if self.currentGame == SM:
             self.partyAddress = 0x34195E10
             self.wildAddress = 0x3254F4AC
@@ -37,8 +39,6 @@ class Manager:
             self.eggAddress = 0x3307B1EC
 
             self.trainerID = 0x33012818
-
-        self.initialSeed = None
 
     def partyPokemon(self, index):
         address = self.partyAddress + (index * 484)
@@ -81,7 +81,7 @@ class Manager:
         difference = self.frameCount
 
         while currSeed != self.currentSeed:
-            self.currentSeed = self.sfmt.NextULong()
+            self.currentSeed = self.sfmt.nextULong()
             self.frameCount += 1
 
         difference = self.frameCount - difference

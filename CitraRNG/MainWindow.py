@@ -78,7 +78,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def updateMainRNG(self):
         values = self.manager.updateFrameCount()
-
+        
         # Check to see if frame changed at all
         if values[0] == 0:
             return
@@ -109,15 +109,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pkm = self.manager.wildPokemon()
 
-        self.labelSpeciesValue.setText(pkm.Species())
-        self.labelGenderValue.setText(pkm.Gender())
-        self.labelNatureValue.setText(pkm.Nature())
-        self.labelAbilityValue.setText(pkm.Ability())
-        self.labelItemValue.setText(pkm.HeldItem())
+        self.labelSpeciesValue.setText(pkm.species())
+        self.labelGenderValue.setText(pkm.gender())
+        self.labelNatureValue.setText(pkm.nature())
+        self.labelAbilityValue.setText(pkm.ability())
+        self.labelItemValue.setText(pkm.heldItem())
         self.labelPSV.setText("PSV: " + colorPSV(pkm.PSV(), pkm.TSV()))
         self.labelTSV.setText("TSV: " + str(pkm.TSV()))
-        self.labelHiddenPowerValue.setText(pkm.HiddenPower())
-        self.labelFriendshipValue.setText(str(pkm.CurrentFriendship()))
+        self.labelHiddenPowerValue.setText(pkm.hiddenPower())
+        self.labelFriendshipValue.setText(str(pkm.currentFriendship()))
         
         self.labelHPIV.setText("IV: " + colorIV(pkm.IVHP()))
         self.labelAtkIV.setText("IV: " + colorIV(pkm.IVAtk()))
@@ -132,14 +132,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.labelSpDEV.setText("EV: " + str(pkm.EVSpD()))
         self.labelSpeEV.setText("EV: " + str(pkm.EVSpe()))
     
-        self.labelMove1Name.setText(pkm.Move1())
-        self.labelMove2Name.setText(pkm.Move2())
-        self.labelMove3Name.setText(pkm.Move3())
-        self.labelMove4Name.setText(pkm.Move4())
-        self.labelMove1PP.setText("PP: " + str(pkm.Move1PP()))
-        self.labelMove2PP.setText("PP: " + str(pkm.Move2PP()))
-        self.labelMove3PP.setText("PP: " + str(pkm.Move3PP()))
-        self.labelMove4PP.setText("PP: " + str(pkm.Move4PP()))
+        self.labelMove1Name.setText(pkm.move1())
+        self.labelMove2Name.setText(pkm.move2())
+        self.labelMove3Name.setText(pkm.move3())
+        self.labelMove4Name.setText(pkm.move4())
+        self.labelMove1PP.setText("PP: " + str(pkm.move1PP()))
+        self.labelMove2PP.setText("PP: " + str(pkm.move2PP()))
+        self.labelMove3PP.setText("PP: " + str(pkm.move3PP()))
+        self.labelMove4PP.setText("PP: " + str(pkm.move4PP()))
 
     def updateDelay(self):
         val = self.doubleSpinBoxDelay.value()

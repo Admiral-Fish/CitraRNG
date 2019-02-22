@@ -4,19 +4,19 @@ class SFMT:
     def __init__(self, seed):
         self.sfmt = []
         self.index = 0
-        self.Initialize(seed)
+        self.initialize(seed)
 
-    def Initialize(self, seed):
+    def initialize(self, seed):
         self.sfmt.append(seed)
 
         for i in range(1, 624):
             y = 0x6C078965 * (self.sfmt[i - 1] ^ (self.sfmt[i - 1] >> 30)) + i
             self.sfmt.append(uint(y))
 
-        self.PeriodCertificaion()
-        self.Shuffle()
+        self.periodCertificaion()
+        self.shuffle()
 
-    def PeriodCertificaion(self):
+    def periodCertificaion(self):
         inner = 0
         work = 0
         parity = [ 0x1, 0x0, 0x0, 0x13c9e684 ]
@@ -36,20 +36,18 @@ class SFMT:
                     return
                 work <<= 1
 
-    def NextUInt(self):
+    def nextUInt(self):
         if (self.index >= 624):
-            self.Shuffle()
-            self.index = 0
+            self.shuffle()
 
         val = self.sfmt[self.index]
         self.index += 1
 
         return val
 
-    def NextULong(self):
+    def nextULong(self):
         if (self.index >= 624):
-            self.Shuffle()
-            self.index = 0
+            self.shuffle()
 
         low = self.sfmt[self.index]
         self.index += 1
@@ -58,7 +56,7 @@ class SFMT:
 
         return (high << 32) | low
 
-    def Shuffle(self):
+    def shuffle(self):
         a = 0
         b = 488
         c = 616
@@ -74,3 +72,5 @@ class SFMT:
             b += 4
             if (b >= 624):
                 b = 0
+
+        self.index = 0
