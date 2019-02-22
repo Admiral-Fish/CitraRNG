@@ -3,9 +3,6 @@ from Pokemon import Pokemon
 from Util import readDWord
 from citra import Citra
 
-SM = 0
-USUM = 1
-
 class Manager(object):
     def __init__(self):
         self.connection = Citra()
