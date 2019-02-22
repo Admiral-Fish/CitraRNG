@@ -6,40 +6,25 @@ from citra import Citra
 SM = 0
 USUM = 1
 
-class Manager:
-    def __init__(self, game):
+class Manager(object):
+    def __init__(self):
         self.connection = Citra()
-        self.currentGame = game
 
-        self.getOffsets()
+        self.partyAddress = None
+        self.wildAddress = None
+        self.seedAddress = None
+        self.sfmtStart = None
+        self.sfmtIndex = None
+        self.eggReady = None
+        self.eggAddress = None
+        self.trainerID = None
         self.initialSeed = None
+        
+        self.getOffsets()
 		
     def getOffsets(self):
-        if self.currentGame == SM:
-            self.partyAddress = 0x34195E10
-            self.wildAddress = 0x3254F4AC
-
-            self.seedAddress = 0x325A3878
-            self.sfmtStart = 0x33195B88
-            self.sfmtIndex = 0x33196548
-
-            self.eggReady = 0x3313EDD8
-            self.eggAddress = 0x3313eddc
-
-            self.trainerID = 0x330D67D0
-        else:
-            self.partyAddress = 0x33F7FA44
-            self.wildAddress = 0x32993404
-
-            self.seedAddress = 0x32663BF0
-            self.sfmtStart = 0x330D35D8
-            self.sfmtIndex = 0x330D3F98
-
-            self.eggReady = 0x3307B1E8
-            self.eggAddress = 0x3307B1EC
-
-            self.trainerID = 0x33012818
-
+        pass            
+            
     def partyPokemon(self, index):
         address = self.partyAddress + (index * 484)
 

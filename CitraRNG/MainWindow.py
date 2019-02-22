@@ -1,11 +1,13 @@
-import time
 import threading
+import time
 
-from Manager import Manager
-from Util import hexify, colorIV, colorPSV
-from ui_MainWindow import Ui_MainWindow
-from PySide2.QtWidgets import QMainWindow, QMessageBox
 from PySide2.QtCore import QSettings, Signal, Slot
+from PySide2.QtWidgets import QMainWindow, QMessageBox
+from ui_MainWindow import Ui_MainWindow
+
+from ManagerSM import ManagerSM
+from ManagerUSUM import ManagerUSUM
+from Util import hexify, colorIV, colorPSV
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     update = Signal()
@@ -38,7 +40,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def connectCitra(self):
         index = self.comboBoxGameSelection.currentIndex()
-        self.manager = Manager(index)
+
+        if index == 0:
+            self.manager = ManagerSM()
+        else:
+            self.manager = ManagerUSUM()
 
         seed = self.manager.readInitialSeed()
         if seed == 0:
