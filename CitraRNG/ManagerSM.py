@@ -7,6 +7,8 @@ class ManagerSM(Manager):
     def getOffsets(self):
         self.partyAddress = 0x34195E10
         self.wildAddress = 0x3254F4AC
+        self.parent1Address = 0x3313EC01
+        self.parent2Address = 0x3313ECEA
 
         self.seedAddress = 0x325A3878
         self.sfmtStart = 0x33195B88

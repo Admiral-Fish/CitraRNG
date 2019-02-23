@@ -136,6 +136,9 @@ class Pokemon:
     def level(self):
         return convertByte(self.data, 0xEC)
 
+    def HPCurrent(self):
+        return convertWord(self.data, 0xF0)
+
     def HP(self):
         return convertWord(self.data, 0xF2)
     

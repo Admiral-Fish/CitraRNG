@@ -9,6 +9,8 @@ class Manager(object):
 
         self.partyAddress = None
         self.wildAddress = None
+        self.parent1Address = None
+        self.parent2Address = None
         self.seedAddress = None
         self.sfmtStart = None
         self.sfmtIndex = None
@@ -33,6 +35,18 @@ class Manager(object):
 
     def wildPokemon(self):
         address = self.wildAddress
+
+        blockData = self.connection.read_memory(address, 232)
+        statsData = self.connection.read_memory(address + 344, 22)
+        data = blockData + statsData
+
+        return Pokemon(data)
+
+    def getParent(self, num):
+        if num == 1:
+            address = self.parent1Address
+        else:
+            address = self.parent2Address
 
         blockData = self.connection.read_memory(address, 232)
         statsData = self.connection.read_memory(address + 344, 22)
