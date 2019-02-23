@@ -92,9 +92,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButtonConnect.setEnabled(True)
         self.pushButtonDisconnect.setEnabled(False)
 
-        self.toggleMainRNG(False)
-        self.toggleEggRNG(False)
-        self.toggleSOSRNG(False)
+        self.pushButtonMainUpdate.setText("Update")
+        self.pushButtonEggUpdate.setText("Update")
+        self.pushButtonSOSUpdate.setText("Update")
 
         self.labelStatus.setText("Disconnected")
 
@@ -120,13 +120,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if values[0] == 0:
                 return
 
-            self.lineEditInitialSeed.setText(hexify(values[1]))
-            self.lineEditCurrentSeed.setText(hexify(values[2]))
-            self.lineEditFrame.setText(str(values[3]))
-            self.lineEditTSV.setText(str(values[4]))
+            self.lineEditMainInitialSeed.setText(hexify(values[1]))
+            self.lineEditMainCurrentSeed.setText(hexify(values[2]))
+            self.lineEditMainFrame.setText(str(values[3]))
+            self.lineEditMainTSV.setText(str(values[4]))
 
-    def toggleMainRNG(self, flag = True):
-        if self.pushButtonMainUpdate.text() == "Update" and flag:
+    def toggleMainRNG(self):
+        if self.pushButtonMainUpdate.text() == "Update":
             self.mainRNG = True
             self.pushButtonMainUpdate.setText("Pause")
         else:
@@ -148,8 +148,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.lineEditEggSeed1.setText(hexify(values[3]))
             self.lineEditEggSeed0.setText(hexify(values[4]))
 
-    def toggleEggRNG(self, flag = True):
-        if self.pushButtonEggUpdate.text() == "Update" and flag:
+    def toggleEggRNG(self):
+        if self.pushButtonEggUpdate.text() == "Update":
             self.eggRNG = True
             self.pushButtonEggUpdate.setText("Pause")
         else:
@@ -161,8 +161,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.sosRNG:
             print("TODO")
 
-    def toggleSOSRNG(self, flag = True):
-        if self.pushButtonSOSUpdate.text() == "Update" and flag:
+    def toggleSOSRNG(self):
+        if self.pushButtonSOSUpdate.text() == "Update":
             self.sosRNG = True
             self.pushButtonSOSUpdate.setText("Pause")
         else:
@@ -181,11 +181,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def updateEggParent1(self):
         pkm = self.manager.getParent(1)
-        self.eggPokemonParent1.updateInformation(pkm)
+        self.eggParent1.updateInformation(pkm)
 
     def updateEggParent2(self):
         pkm = self.manager.getParent(2)
-        self.eggPokemonParent2.updateInformation(pkm)
+        self.eggParent2.updateInformation(pkm)
 
     def updateSOSPokemon(self):
         print("TODO")
