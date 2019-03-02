@@ -2,7 +2,7 @@
 
 Work in progress RNG assistant developed with Python 3.7 and pyside2 for use with Pokémon Sun/Moon v1.2 and Pokémon Ultra Sun/Ultra Moon v1.2. 
 
-For the time being there will be no support for X/Y or Omega Ruby/Alpha Sapphire.
+There will be no support for X/Y or Omega Ruby/Alpha Sapphire.
 
 ### Citra Setup
 

@@ -187,97 +187,8 @@
           <property name="title">
            <string>Main RNG</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="1" column="0">
-            <widget class="QLabel" name="labelMainInitialSeed">
-             <property name="text">
-              <string>Initial Seed:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="lineEditMainFrame">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="lineEditMainTSV">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maxLength">
-              <number>4</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="labelMainTSV">
-             <property name="text">
-              <string>TSV:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEditMainInitialSeed">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="labelMainCurrentSeed">
-             <property name="text">
-              <string>Current Seed:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="labelMainFrame">
-             <property name="text">
-              <string>Frame:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEditMainCurrentSeed">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maxLength">
-              <number>16</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="2">
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="0" column="0">
             <widget class="QPushButton" name="pushButtonMainUpdate">
              <property name="enabled">
               <bool>false</bool>
@@ -286,6 +197,99 @@
               <string>Update</string>
              </property>
             </widget>
+           </item>
+           <item row="1" column="0">
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelMainInitialSeed">
+               <property name="text">
+                <string>Initial Seed:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEditMainInitialSeed">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelMainCurrentSeed">
+               <property name="text">
+                <string>Current Seed:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="lineEditMainCurrentSeed">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maxLength">
+                <number>16</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelMainFrame">
+               <property name="text">
+                <string>Frame:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="lineEditMainFrame">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelMainTSV">
+               <property name="text">
+                <string>TSV:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="lineEditMainTSV">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maxLength">
+                <number>4</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -318,120 +322,8 @@
           <property name="title">
            <string>Egg RNG</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="1" column="0">
-            <widget class="QLabel" name="labelEggReady">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Egg Ready:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="labelEggReadyStatus">
-             <property name="text">
-              <string>No egg yet</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="labelEggSeed3">
-             <property name="text">
-              <string>[3]</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEditEggSeed3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="labelEggSeed2">
-             <property name="text">
-              <string>[2]</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="lineEditEggSeed2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="labelEggSeed1">
-             <property name="text">
-              <string>[1]</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="lineEditEggSeed1">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="labelEggSeed0">
-             <property name="text">
-              <string>[0]</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QLineEdit" name="lineEditEggSeed0">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="2">
+          <layout class="QGridLayout" name="gridLayout_11">
+           <item row="0" column="0">
             <widget class="QPushButton" name="pushButtonEggUpdate">
              <property name="enabled">
               <bool>false</bool>
@@ -440,6 +332,122 @@
               <string>Update</string>
              </property>
             </widget>
+           </item>
+           <item row="1" column="0">
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelEggReady">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Egg Ready:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="labelEggReadyStatus">
+               <property name="text">
+                <string>No egg yet</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelEggSeed3">
+               <property name="text">
+                <string>[3]</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="lineEditEggSeed3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelEggSeed2">
+               <property name="text">
+                <string>[2]</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="lineEditEggSeed2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelEggSeed1">
+               <property name="text">
+                <string>[1]</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="lineEditEggSeed1">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="labelEggSeed0">
+               <property name="text">
+                <string>[0]</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="lineEditEggSeed0">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -472,16 +480,33 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
-         <widget class="PokemonDisplay" name="sosPokemon" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>1</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QComboBox" name="comboBoxSOSIndex">
+          <property name="enabled">
+           <bool>false</bool>
           </property>
+          <item>
+           <property name="text">
+            <string>SOS 1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SOS 2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SOS 3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SOS 4</string>
+           </property>
+          </item>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="0" column="1" rowspan="2">
          <widget class="QGroupBox" name="groupBoxSOS">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -492,76 +517,8 @@
           <property name="title">
            <string>SOS RNG</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="1" column="0">
-            <widget class="QLabel" name="labelSOSInitialSeed">
-             <property name="text">
-              <string>Initial Seed:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLineEdit" name="lineEditSOSInitialSeed">
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QLabel" name="labelSOSCurrentSeed">
-             <property name="text">
-              <string>Current Seed:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLineEdit" name="lineEditSOSCurrentSeed">
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="labelSOSFrame">
-             <property name="text">
-              <string>Frame:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QLineEdit" name="lineEditSOSFrame">
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0" colspan="2">
-            <widget class="QLabel" name="labelSOSChainCount">
-             <property name="text">
-              <string>Chain Count:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="QLineEdit" name="lineEditSOSChainCount">
-             <property name="maxLength">
-              <number>8</number>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="3">
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="0">
             <widget class="QPushButton" name="pushButtonSOSUpdate">
              <property name="enabled">
               <bool>false</bool>
@@ -571,7 +528,102 @@
              </property>
             </widget>
            </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="pushButtonSOSReset">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>This should be used after a battle</string>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <layout class="QGridLayout" name="gridLayout_5">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelSOSInitialSeed">
+               <property name="text">
+                <string>Initial Seed:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEditSOSInitialSeed">
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelSOSCurrentSeed">
+               <property name="text">
+                <string>Current Seed:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="lineEditSOSCurrentSeed">
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelSOSFrame">
+               <property name="text">
+                <string>Frame:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="lineEditSOSFrame">
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelSOSChainCount">
+               <property name="text">
+                <string>Chain Count:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="lineEditSOSChainCount">
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
           </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="PokemonDisplay" name="sosPokemon" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
          </widget>
         </item>
        </layout>

@@ -29,6 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButtonMainUpdate.clicked.connect(self.toggleMainRNG)
         self.pushButtonEggUpdate.clicked.connect(self.toggleEggRNG)
         self.pushButtonSOSUpdate.clicked.connect(self.toggleSOSRNG)
+        self.pushButtonSOSReset.clicked.connect(self.resetSOSRNG)
         
         self.mainPokemon.pushButtonUpdate.clicked.connect(self.updateMainPokemon)
         self.eggParent1.pushButtonUpdate.clicked.connect(self.updateEggParent1)
@@ -60,7 +61,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.manager = ManagerUSUM()
 
-        seed = self.manager.readInitialSeed()
+        seed = self.manager.readMainInitialSeed()
         if seed == 0:
             message = QMessageBox()
             message.setText("Initial seed not valid.\nCheck that you are using the correct game or the latest version of the game")
@@ -100,6 +101,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def toggleEnable(self, flag):
         self.comboBoxMainIndex.setEnabled(flag)
+        self.comboBoxSOSIndex.setEnabled(flag)
         self.doubleSpinBoxDelay.setEnabled(flag)
 
         self.mainPokemon.pushButtonUpdate.setEnabled(flag)
@@ -110,11 +112,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButtonMainUpdate.setEnabled(flag)
         self.pushButtonEggUpdate.setEnabled(flag)
         self.pushButtonSOSUpdate.setEnabled(flag)
+        self.pushButtonSOSReset.setEnabled(flag)
 
     @Slot()
     def updateMainRNG(self):
         if self.mainRNG:
-            values = self.manager.updateFrameCount()
+            values = self.manager.updateMainFrameCount()
             
             # Check to see if frame changed at all
             if values[0] == 0:
@@ -159,7 +162,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def updateSOSRNG(self):
         if self.sosRNG:
-            print("TODO")
+            if self.manager.sosInitialSeed is None:
+                self.manager.readSOSInitialSeed()
+            
+            values = self.manager.updateSOSFrameCount()
+            
+            # Check to see if frame changed at all
+            if values[0] == 0:
+                return
+
+            self.lineEditSOSInitialSeed.setText(hexify(values[1]))
+            self.lineEditSOSCurrentSeed.setText(hexify(values[2]))
+            self.lineEditSOSFrame.setText(str(values[3]))
+            self.lineEditSOSChainCount.setText(str(values[4]))
 
     def toggleSOSRNG(self):
         if self.pushButtonSOSUpdate.text() == "Update":
@@ -168,6 +183,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.sosRNG = False
             self.pushButtonSOSUpdate.setText("Update")
+
+    @Slot()
+    def resetSOSRNG(self):
+        self.manager.sosInitialSeed = None
 
     def updateMainPokemon(self):
         index = self.comboBoxMainIndex.currentIndex()
@@ -188,7 +207,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.eggParent2.updateInformation(pkm)
 
     def updateSOSPokemon(self):
-        print("TODO")
+        index = self.comboBoxSOSIndex.currentIndex()
+        pkm = self.manager.sosPokemon(index)
+        self.sosPokemon.updateInformation(pkm)
 
     def updateDelay(self):
         val = self.doubleSpinBoxDelay.value()

@@ -1,6 +1,6 @@
 from SFMT import SFMT
 from Pokemon import Pokemon
-from Util import readDWord
+from Util import readDWord, readByte
 from citra import Citra
 
 class Manager(object):
@@ -9,15 +9,26 @@ class Manager(object):
 
         self.partyAddress = None
         self.wildAddress = None
-        self.parent1Address = None
-        self.parent2Address = None
-        self.seedAddress = None
-        self.sfmtStart = None
-        self.sfmtIndex = None
+        self.sosAddress = None
+
+        self.mainSeedAddress = None
+        self.mainSFMTStart = None
+        self.mainSFMTIndex = None
+
+        self.sosSeedAddress = None
+        self.sosSFMTStart = None
+        self.sosSFMTIndex = None
+        self.sosChainLength = None
+
         self.eggReady = None
         self.eggAddress = None
+        self.parent1Address = None
+        self.parent2Address = None
+
         self.trainerID = None
-        self.initialSeed = None
+
+        self.mainInitialSeed = None
+        self.sosInitialSeed = None
         
         self.getOffsets()
 		
@@ -35,6 +46,15 @@ class Manager(object):
 
     def wildPokemon(self):
         address = self.wildAddress
+
+        blockData = self.connection.read_memory(address, 232)
+        statsData = self.connection.read_memory(address + 344, 22)
+        data = blockData + statsData
+
+        return Pokemon(data)
+
+    def sosPokemon(self, index):
+        address = self.sosAddress + (index * 484)
 
         blockData = self.connection.read_memory(address, 232)
         statsData = self.connection.read_memory(address + 344, 22)
@@ -64,38 +84,75 @@ class Manager(object):
 
         return [ val, seed3, seed2, seed1, seed0 ]
 
-    def readInitialSeed(self):
-        self.initialSeed = readDWord(self.connection, self.seedAddress)
-        self.sfmt = SFMT(self.initialSeed)
-        self.currentSeed = 0
-        self.frameCount = -1
+    def readMainInitialSeed(self):
+        self.mainInitialSeed = readDWord(self.connection, self.mainSeedAddress)
+        self.mainSFMT = SFMT(self.mainInitialSeed)
+        self.mainCurrentSeed = self.mainInitialSeed
+        self.mainFrameCount = -1
 
-        return self.initialSeed
+        return self.mainInitialSeed
 
-    def updateFrameCount(self):        
-        currSeed = self.getCurrentSeed()
-        difference = self.frameCount
+    def updateMainFrameCount(self):        
+        currSeed = self.getMainCurrentSeed()
+        difference = self.mainFrameCount
 
-        while currSeed != self.currentSeed:
-            self.currentSeed = self.sfmt.nextULong()
-            self.frameCount += 1
+        while currSeed != self.mainCurrentSeed:
+            self.mainCurrentSeed = self.mainSFMT.nextULong()
+            self.mainFrameCount += 1
 
-        difference = self.frameCount - difference
-        return [ difference, self.initialSeed, self.currentSeed, self.frameCount, self.trainerShinyValue() ]
+        difference = self.mainFrameCount - difference
+        return [ difference, self.mainInitialSeed, self.mainCurrentSeed, self.mainFrameCount, self.trainerShinyValue() ]
 
-    def getCurrentSeed(self):
-        index = readDWord(self.connection, self.sfmtIndex)
+    def getMainCurrentSeed(self):
+        index = readDWord(self.connection, self.mainSFMTIndex)
 
         if index == 624:
-            pointer = self.sfmtStart
+            pointer = self.mainSFMTStart
         else:
-            pointer = self.sfmtStart + (index * 4)
+            pointer = self.mainSFMTStart + (index * 4)
 
         seed1 = readDWord(self.connection, pointer)
         seed2 = readDWord(self.connection, pointer + 4)
 
         return (seed2 << 32) | seed1
 
+    def readSOSInitialSeed(self):
+        self.sosInitialSeed = readDWord(self.connection, self.sosSeedAddress)
+        self.sosSFMT = SFMT(self.sosInitialSeed)
+        self.sosCurrentSeed = self.sosInitialSeed
+        self.sosFrameCount = -1
+
+        return self.sosInitialSeed
+
+    def updateSOSFrameCount(self):        
+        currSeed = self.getSOSCurrentSeed()
+        difference = self.sosFrameCount
+
+        if currSeed == self.sosInitialSeed:
+            difference = -2
+
+        while currSeed != self.sosCurrentSeed:
+            self.sosCurrentSeed = self.sosSFMT.nextUInt()
+            self.sosFrameCount += 1
+
+        difference = self.sosFrameCount - difference
+        return [ difference, self.sosInitialSeed, self.sosCurrentSeed, self.sosFrameCount, self.sosChainCount() ]
+
+    def getSOSCurrentSeed(self):
+        index = readDWord(self.connection, self.sosSFMTIndex)
+
+        if index == 624:
+            pointer = self.sosSFMTStart
+        else:
+            pointer = self.sosSFMTStart + (index * 4)
+
+        seed = readDWord(self.connection, pointer)
+
+        return seed
+
     def trainerShinyValue(self):
         val = readDWord(self.connection, self.trainerID)
         return ((val >> 16) ^ (val & 0xffff)) >> 4
+
+    def sosChainCount(self):
+        return readByte(self.connection, self.sosChainLength)
