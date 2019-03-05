@@ -356,7 +356,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "CitraRNG 1.2.3", None, -1))
+        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "CitraRNG 2.0.0", None, -1))
         self.groupBoxConnection.setTitle(QtWidgets.QApplication.translate("MainWindow", "Connection", None, -1))
         self.pushButtonConnect.setText(QtWidgets.QApplication.translate("MainWindow", "Connect", None, -1))
         self.labelUpdateDelay.setText(QtWidgets.QApplication.translate("MainWindow", "Auto update delay(seconds):", None, -1))
