@@ -13,13 +13,13 @@ class ManagerSM(Manager):
         self.mainSFMTStart = 0x33195B88
         self.mainSFMTIndex = 0x33196548
 
-        self.sosSeedAddress = 0x3003C9B8
-        self.sosSFMTStart = 0x3003C9B8
-        self.sosSFMTIndex = 0x3003D378
-        self.sosChainLength = 0x3003D379
+        self.sosSeedAddress = 0x30038C44
+        self.sosSFMTStart = 0x30038C44
+        self.sosSFMTIndex = 0x30039604
+        self.sosChainLength = 0x3003960D # This is wrong
 
         self.eggReady = 0x3313EDD8
-        self.eggAddress = 0x3313eddc
+        self.eggAddress = 0x3313EDDC
         self.parent1Address = 0x3313EC01
         self.parent2Address = 0x3313ECEA
 

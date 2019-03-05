@@ -6,7 +6,7 @@ class ManagerUSUM(Manager):
 
     def getOffsets(self):
         self.partyAddress = 0x33F7FA44
-        self.wildAddress = 0x3002f9a0
+        self.wildAddress = 0x3002F9A0
         self.sosAddress = 0x3002F9A0
 
         self.mainSeedAddress = 0x32663BF0
