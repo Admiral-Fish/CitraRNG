@@ -216,6 +216,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.delay = val
 
     def autoUpdate(self):
-        while self.allowUpdate == True:
+        while self.allowUpdate and self.manager.citra.is_connected():
             self.update.emit()
             time.sleep(self.delay)

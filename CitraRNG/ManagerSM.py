@@ -16,7 +16,7 @@ class ManagerSM(Manager):
         self.sosSeedAddress = 0x30038C44
         self.sosSFMTStart = 0x30038C44
         self.sosSFMTIndex = 0x30039604
-        self.sosChainLength = 0x3003960D # This is wrong
+        self.sosChainLength = 0x3003D379 # This is wrong
 
         self.eggReady = 0x3313EDD8
         self.eggAddress = 0x3313EDDC

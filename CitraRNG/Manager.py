@@ -5,7 +5,7 @@ from citra import Citra
 
 class Manager(object):
     def __init__(self):
-        self.connection = Citra()
+        self.citra = Citra()
 
         self.partyAddress = None
         self.wildAddress = None
@@ -38,8 +38,8 @@ class Manager(object):
     def partyPokemon(self, index):
         address = self.partyAddress + (index * 484)
 
-        blockData = self.connection.read_memory(address, 232)
-        statsData = self.connection.read_memory(address + 344, 22)
+        blockData = self.citra.read_memory(address, 232)
+        statsData = self.citra.read_memory(address + 344, 22)
         data = blockData + statsData
 
         return Pokemon(data)
@@ -47,8 +47,8 @@ class Manager(object):
     def wildPokemon(self):
         address = self.wildAddress
 
-        blockData = self.connection.read_memory(address, 232)
-        statsData = self.connection.read_memory(address + 344, 22)
+        blockData = self.citra.read_memory(address, 232)
+        statsData = self.citra.read_memory(address + 344, 22)
         data = blockData + statsData
 
         return Pokemon(data)
@@ -56,8 +56,8 @@ class Manager(object):
     def sosPokemon(self, index):
         address = self.sosAddress + (index * 484)
 
-        blockData = self.connection.read_memory(address, 232)
-        statsData = self.connection.read_memory(address + 344, 22)
+        blockData = self.citra.read_memory(address, 232)
+        statsData = self.citra.read_memory(address + 344, 22)
         data = blockData + statsData
 
         return Pokemon(data)
@@ -68,24 +68,24 @@ class Manager(object):
         else:
             address = self.parent2Address
 
-        blockData = self.connection.read_memory(address, 232)
-        statsData = self.connection.read_memory(address + 344, 22)
+        blockData = self.citra.read_memory(address, 232)
+        statsData = self.citra.read_memory(address + 344, 22)
         data = blockData + statsData
 
         return Pokemon(data)
 
     def eggStatus(self):
-        val = readDWord(self.connection, self.eggReady)
+        val = readDWord(self.citra, self.eggReady)
 
-        seed3 = readDWord(self.connection, self.eggAddress)
-        seed2 = readDWord(self.connection, self.eggAddress + 4)
-        seed1 = readDWord(self.connection, self.eggAddress + 8)
-        seed0 = readDWord(self.connection, self.eggAddress + 12)
+        seed3 = readDWord(self.citra, self.eggAddress)
+        seed2 = readDWord(self.citra, self.eggAddress + 4)
+        seed1 = readDWord(self.citra, self.eggAddress + 8)
+        seed0 = readDWord(self.citra, self.eggAddress + 12)
 
         return [ val, seed3, seed2, seed1, seed0 ]
 
     def readMainInitialSeed(self):
-        self.mainInitialSeed = readDWord(self.connection, self.mainSeedAddress)
+        self.mainInitialSeed = readDWord(self.citra, self.mainSeedAddress)
         self.mainSFMT = SFMT(self.mainInitialSeed)
         self.mainCurrentSeed = self.mainInitialSeed
         self.mainFrameCount = -1
@@ -104,20 +104,20 @@ class Manager(object):
         return [ difference, self.mainInitialSeed, self.mainCurrentSeed, self.mainFrameCount, self.trainerShinyValue() ]
 
     def getMainCurrentSeed(self):
-        index = readDWord(self.connection, self.mainSFMTIndex)
+        index = readDWord(self.citra, self.mainSFMTIndex)
 
         if index == 624:
             pointer = self.mainSFMTStart
         else:
             pointer = self.mainSFMTStart + (index * 4)
 
-        seed1 = readDWord(self.connection, pointer)
-        seed2 = readDWord(self.connection, pointer + 4)
+        seed1 = readDWord(self.citra, pointer)
+        seed2 = readDWord(self.citra, pointer + 4)
 
         return (seed2 << 32) | seed1
 
     def readSOSInitialSeed(self):
-        self.sosInitialSeed = readDWord(self.connection, self.sosSeedAddress)
+        self.sosInitialSeed = readDWord(self.citra, self.sosSeedAddress)
         self.sosSFMT = SFMT(self.sosInitialSeed)
         self.sosCurrentSeed = self.sosInitialSeed
         self.sosFrameCount = -1
@@ -139,20 +139,20 @@ class Manager(object):
         return [ difference, self.sosInitialSeed, self.sosCurrentSeed, self.sosFrameCount, self.sosChainCount() ]
 
     def getSOSCurrentSeed(self):
-        index = readDWord(self.connection, self.sosSFMTIndex)
+        index = readDWord(self.citra, self.sosSFMTIndex)
 
         if index == 624:
             pointer = self.sosSFMTStart
         else:
             pointer = self.sosSFMTStart + (index * 4)
 
-        seed = readDWord(self.connection, pointer)
+        seed = readDWord(self.citra, pointer)
 
         return seed
 
     def trainerShinyValue(self):
-        val = readDWord(self.connection, self.trainerID)
+        val = readDWord(self.citra, self.trainerID)
         return ((val >> 16) ^ (val & 0xffff)) >> 4
 
     def sosChainCount(self):
-        return readByte(self.connection, self.sosChainLength)
+        return readByte(self.citra, self.sosChainLength)
