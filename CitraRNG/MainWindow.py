@@ -7,7 +7,7 @@ from ui_MainWindow import Ui_MainWindow
 
 from ManagerSM import ManagerSM
 from ManagerUSUM import ManagerUSUM
-from Util import hexify, colorIV, colorPSV
+from Util import hexify
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     update = Signal()
@@ -16,14 +16,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.loadSettings()
+
+        self.mainPokemon.setTitle("Main Pokemon")
+        self.eggParent1.setTitle("Parent 1")
+        self.eggParent2.setTitle("Parent 2")
+        self.sosPokemon.setTitle("SOS Pokemon")
         
         self.pushButtonConnect.clicked.connect(self.connectCitra)
         self.pushButtonDisconnect.clicked.connect(self.disconnectCitra)
-        self.pushButtonUpdatePokemon.clicked.connect(self.updatePokemon)
         self.doubleSpinBoxDelay.valueChanged.connect(self.updateDelay)
+
+        self.pushButtonMainUpdate.clicked.connect(self.toggleMainRNG)
+        self.pushButtonEggUpdate.clicked.connect(self.toggleEggRNG)
+        self.pushButtonSOSUpdate.clicked.connect(self.toggleSOSRNG)
+        self.pushButtonSOSReset.clicked.connect(self.resetSOSRNG)
+        
+        self.mainPokemon.pushButtonUpdate.clicked.connect(self.updateMainPokemon)
+        self.eggParent1.pushButtonUpdate.clicked.connect(self.updateEggParent1)
+        self.eggParent2.pushButtonUpdate.clicked.connect(self.updateEggParent2)
+        self.sosPokemon.pushButtonUpdate.clicked.connect(self.updateSOSPokemon)
 
         self.update.connect(self.updateMainRNG)
         self.update.connect(self.updateEggRNG)
+        self.update.connect(self.updateSOSRNG)
 
     def closeEvent(self, event):
         self.saveSettings()
@@ -46,7 +61,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.manager = ManagerUSUM()
 
-        seed = self.manager.readInitialSeed()
+        seed = self.manager.readMainInitialSeed()
         if seed == 0:
             message = QMessageBox()
             message.setText("Initial seed not valid.\nCheck that you are using the correct game or the latest version of the game")
@@ -62,6 +77,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButtonConnect.setEnabled(False)
         self.pushButtonDisconnect.setEnabled(True)
 
+        self.mainRNG = False
+        self.eggRNG = False
+        self.sosRNG = False
+
         t = threading.Thread(target=self.autoUpdate)
         time.sleep(1)
         t.start()
@@ -74,84 +93,129 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButtonConnect.setEnabled(True)
         self.pushButtonDisconnect.setEnabled(False)
 
+        self.pushButtonMainUpdate.setText("Update")
+        self.pushButtonEggUpdate.setText("Update")
+        self.pushButtonSOSUpdate.setText("Update")
+
         self.labelStatus.setText("Disconnected")
 
     def toggleEnable(self, flag):
-        self.comboBoxPokemon.setEnabled(flag)
-        self.pushButtonUpdatePokemon.setEnabled(flag)
+        self.comboBoxMainIndex.setEnabled(flag)
+        self.comboBoxSOSIndex.setEnabled(flag)
         self.doubleSpinBoxDelay.setEnabled(flag)
+
+        self.mainPokemon.pushButtonUpdate.setEnabled(flag)
+        self.eggParent1.pushButtonUpdate.setEnabled(flag)
+        self.eggParent2.pushButtonUpdate.setEnabled(flag)
+        self.sosPokemon.pushButtonUpdate.setEnabled(flag)
+
+        self.pushButtonMainUpdate.setEnabled(flag)
+        self.pushButtonEggUpdate.setEnabled(flag)
+        self.pushButtonSOSUpdate.setEnabled(flag)
+        self.pushButtonSOSReset.setEnabled(flag)
 
     @Slot()
     def updateMainRNG(self):
-        values = self.manager.updateFrameCount()
-        
-        # Check to see if frame changed at all
-        if values[0] == 0:
-            return
+        if self.mainRNG:
+            values = self.manager.updateMainFrameCount()
+            
+            # Check to see if frame changed at all
+            if values[0] == 0:
+                return
 
-        self.lineEditInitialSeed.setText(hexify(values[1]))
-        self.lineEditCurrentSeed.setText(hexify(values[2]))
-        self.lineEditFrame.setText(str(values[3]))
-        self.lineEditTSV.setText(str(values[4]))
+            self.lineEditMainInitialSeed.setText(hexify(values[1]))
+            self.lineEditMainCurrentSeed.setText(hexify(values[2]))
+            self.lineEditMainFrame.setText(str(values[3]))
+            self.lineEditMainTSV.setText(str(values[4]))
 
-    def updateEggRNG(self):
-        values = self.manager.eggStatus()
-
-        if values[0] == 0:
-            self.labelEggReadyStatus.setText("No egg yet")
+    def toggleMainRNG(self):
+        if self.pushButtonMainUpdate.text() == "Update":
+            self.mainRNG = True
+            self.pushButtonMainUpdate.setText("Pause")
         else:
-            self.labelEggReadyStatus.setText("Egg ready")
+            self.mainRNG = False
+            self.pushButtonMainUpdate.setText("Update")
 
-        self.lineEditEggSeed3.setText(hexify(values[1]))
-        self.lineEditEggSeed2.setText(hexify(values[2]))
-        self.lineEditEggSeed1.setText(hexify(values[3]))
-        self.lineEditEggSeed0.setText(hexify(values[4]))
+    @Slot()
+    def updateEggRNG(self):
+        if self.eggRNG:
+            values = self.manager.eggStatus()
 
-    def updatePokemon(self):
-        index = self.comboBoxPokemon.currentIndex()
+            if values[0] == 0:
+                self.labelEggReadyStatus.setText("No egg yet")
+            else:
+                self.labelEggReadyStatus.setText("Egg ready")
+
+            self.lineEditEggSeed3.setText(hexify(values[1]))
+            self.lineEditEggSeed2.setText(hexify(values[2]))
+            self.lineEditEggSeed1.setText(hexify(values[3]))
+            self.lineEditEggSeed0.setText(hexify(values[4]))
+
+    def toggleEggRNG(self):
+        if self.pushButtonEggUpdate.text() == "Update":
+            self.eggRNG = True
+            self.pushButtonEggUpdate.setText("Pause")
+        else:
+            self.eggRNG = False
+            self.pushButtonEggUpdate.setText("Update")
+
+    @Slot()
+    def updateSOSRNG(self):
+        if self.sosRNG:
+            if self.manager.sosInitialSeed is None:
+                self.manager.readSOSInitialSeed()
+            
+            values = self.manager.updateSOSFrameCount()
+            
+            # Check to see if frame changed at all
+            if values[0] == 0:
+                return
+
+            self.lineEditSOSInitialSeed.setText(hexify(values[1]))
+            self.lineEditSOSCurrentSeed.setText(hexify(values[2]))
+            self.lineEditSOSFrame.setText(str(values[3]))
+            self.lineEditSOSChainCount.setText(str(values[4]))
+
+    def toggleSOSRNG(self):
+        if self.pushButtonSOSUpdate.text() == "Update":
+            self.sosRNG = True
+            self.pushButtonSOSUpdate.setText("Pause")
+        else:
+            self.sosRNG = False
+            self.pushButtonSOSUpdate.setText("Update")
+
+    @Slot()
+    def resetSOSRNG(self):
+        self.manager.sosInitialSeed = None
+
+    def updateMainPokemon(self):
+        index = self.comboBoxMainIndex.currentIndex()
 
         if index < 6:
             pkm = self.manager.partyPokemon(index)
         else:
             pkm = self.manager.wildPokemon()
 
-        self.labelSpeciesValue.setText(pkm.species())
-        self.labelGenderValue.setText(pkm.gender())
-        self.labelNatureValue.setText(pkm.nature())
-        self.labelAbilityValue.setText(pkm.ability())
-        self.labelItemValue.setText(pkm.heldItem())
-        self.labelPSV.setText("PSV: " + colorPSV(pkm.PSV(), pkm.TSV()))
-        self.labelTSV.setText("TSV: " + str(pkm.TSV()))
-        self.labelHiddenPowerValue.setText(pkm.hiddenPower())
-        self.labelFriendshipValue.setText(str(pkm.currentFriendship()))
-        
-        self.labelHPIV.setText("IV: " + colorIV(pkm.IVHP()))
-        self.labelAtkIV.setText("IV: " + colorIV(pkm.IVAtk()))
-        self.labelDefIV.setText("IV: " + colorIV(pkm.IVDef()))
-        self.labelSpAIV.setText("IV: " + colorIV(pkm.IVSpA()))
-        self.labelSpDIV.setText("IV: " + colorIV(pkm.IVSpD()))
-        self.labelSpeIV.setText("IV: " + colorIV(pkm.IVSpe()))
-        self.labelHPEV.setText("EV: " + str(pkm.EVHP()))
-        self.labelAtkEV.setText("EV: " + str(pkm.EVAtk()))
-        self.labelDefEV.setText("EV: " + str(pkm.EVDef()))
-        self.labelSpAEV.setText("EV: " + str(pkm.EVSpA()))
-        self.labelSpDEV.setText("EV: " + str(pkm.EVSpD()))
-        self.labelSpeEV.setText("EV: " + str(pkm.EVSpe()))
-    
-        self.labelMove1Name.setText(pkm.move1())
-        self.labelMove2Name.setText(pkm.move2())
-        self.labelMove3Name.setText(pkm.move3())
-        self.labelMove4Name.setText(pkm.move4())
-        self.labelMove1PP.setText("PP: " + str(pkm.move1PP()))
-        self.labelMove2PP.setText("PP: " + str(pkm.move2PP()))
-        self.labelMove3PP.setText("PP: " + str(pkm.move3PP()))
-        self.labelMove4PP.setText("PP: " + str(pkm.move4PP()))
+        self.mainPokemon.updateInformation(pkm)
+
+    def updateEggParent1(self):
+        pkm = self.manager.getParent(1)
+        self.eggParent1.updateInformation(pkm)
+
+    def updateEggParent2(self):
+        pkm = self.manager.getParent(2)
+        self.eggParent2.updateInformation(pkm)
+
+    def updateSOSPokemon(self):
+        index = self.comboBoxSOSIndex.currentIndex()
+        pkm = self.manager.sosPokemon(index)
+        self.sosPokemon.updateInformation(pkm)
 
     def updateDelay(self):
         val = self.doubleSpinBoxDelay.value()
         self.delay = val
 
     def autoUpdate(self):
-        while self.allowUpdate == True:
+        while self.allowUpdate and self.manager.citra.is_connected():
             self.update.emit()
             time.sleep(self.delay)

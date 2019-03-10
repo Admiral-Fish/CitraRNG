@@ -43,8 +43,9 @@ def decryptArray(encryptedData):
 
     data = cryptArray(encryptedData, pv, 8, 232)
     data = shuffleArray(data, sv)
+    data = encryptedData[0:8] + data
 
-    return encryptedData[0:8] + data
+    return data
 
 def cryptArray(data, seed, start, end):
     result = bytes()
@@ -81,4 +82,6 @@ def shuffleArray(data, sv):
         start = 56 * blockPosition[block + index]
         end = start + 56
         result += data[start:end]
+
+    result += data[224:]
     return result

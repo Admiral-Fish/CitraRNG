@@ -3,18 +3,21 @@ from Util import uint
 class SFMT:
     def __init__(self, seed):
         self.sfmt = []
-        self.index = 0
-        self.initialize(seed)
+        self.index = 624
+        self.seed = seed
+        self.initialize()
 
-    def initialize(self, seed):
-        self.sfmt.append(seed)
+    def getInitialSeed(self):
+        return self.seed
+
+    def initialize(self):
+        self.sfmt.append(self.seed)
 
         for i in range(1, 624):
             y = 0x6C078965 * (self.sfmt[i - 1] ^ (self.sfmt[i - 1] >> 30)) + i
             self.sfmt.append(uint(y))
 
         self.periodCertificaion()
-        self.shuffle()
 
     def periodCertificaion(self):
         inner = 0
@@ -30,7 +33,7 @@ class SFMT:
 
         for i in range(4):
             work = 1
-            for j in range(32):
+            for _ in range(32):
                 if (work & parity[i]) != 0:
                     self.sfmt[i] ^= work
                     return
