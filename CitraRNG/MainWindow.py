@@ -118,7 +118,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def updateMainRNG(self):
         if self.mainRNG:
             values = self.manager.updateMainFrameCount()
-            
+
+            # Handle infinite loop
+            if values is None:
+                message = QMessageBox()
+                message.setText("Exiting an infinite loop. Make sure no patches are installed and the game is on the latest version")
+                message.exec_()
+
+                self.toggleMainRNG()
+                return
+
             # Check to see if frame changed at all
             if values[0] == 0:
                 return
@@ -166,6 +175,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.manager.readSOSInitialSeed()
             
             values = self.manager.updateSOSFrameCount()
+
+            # Handle infinite loop
+            if values is None:
+                message = QMessageBox()
+                message.setText("Exiting an infinite loop. Retry the battle and start updating before taking any actions.")
+                message.exec_()
+
+                self.toggleSOSRNG()
+                return
             
             # Check to see if frame changed at all
             if values[0] == 0:

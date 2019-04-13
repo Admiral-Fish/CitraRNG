@@ -95,11 +95,17 @@ class Manager(object):
     def updateMainFrameCount(self):        
         currSeed = self.getMainCurrentSeed()
         difference = self.mainFrameCount
+        count = 0
 
         while currSeed != self.mainCurrentSeed:
             self.mainCurrentSeed = self.mainSFMT.nextULong()
-            self.mainFrameCount += 1
+            count += 1
 
+            # Probably stuck in an infinite loop
+            if count > 100000:
+                return None
+
+        self.mainFrameCount += count
         difference = self.mainFrameCount - difference
         return [ difference, self.mainInitialSeed, self.mainCurrentSeed, self.mainFrameCount, self.trainerShinyValue() ]
 
@@ -127,14 +133,20 @@ class Manager(object):
     def updateSOSFrameCount(self):        
         currSeed = self.getSOSCurrentSeed()
         difference = self.sosFrameCount
+        count = 0
 
         if currSeed == self.sosInitialSeed:
             difference = -2
 
         while currSeed != self.sosCurrentSeed:
             self.sosCurrentSeed = self.sosSFMT.nextUInt()
-            self.sosFrameCount += 1
+            count += 1
 
+            # Probably stuck in an infinite loop
+            if count > 100000:
+                return None            
+            
+        self.sosFrameCount += count
         difference = self.sosFrameCount - difference
         return [ difference, self.sosInitialSeed, self.sosCurrentSeed, self.sosFrameCount, self.sosChainCount() ]
 
