@@ -149,10 +149,10 @@ class Pokemon:
         return convertWord(self.data, 0xF6)
     
     def SpA(self):
-        return convertWord(self.data, 0xF8)
-    
-    def SpD(self):
         return convertWord(self.data, 0xFA)
     
-    def Spe(self):
+    def SpD(self):
         return convertWord(self.data, 0xFC)
+    
+    def Spe(self):
+        return convertWord(self.data, 0xF8)
