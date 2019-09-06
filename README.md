@@ -4,6 +4,8 @@ Work in progress RNG assistant developed with Python 3.7 and pyside2 for use wit
 
 There will be no support for X/Y or Omega Ruby/Alpha Sapphire.
 
+Last tested on Citra Canary 1466.
+
 ### Citra Setup
 
  1. Install the latest release of Python 3: https://www.python.org/downloads/
