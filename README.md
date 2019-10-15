@@ -1,10 +1,8 @@
 # CitraRNG
 
-Work in progress RNG assistant developed with Python 3.7 and pyside2 for use with Pokémon Sun/Moon v1.2 and Pokémon Ultra Sun/Ultra Moon v1.2. 
+RNG assistant developed with Python 3.7 and pyside2 for use with Pokémon XY v1.5, ORAS 1.4, and SM/USUM v1.2. Support for XY and ORAS is WIP.
 
-There will be no support for X/Y or Omega Ruby/Alpha Sapphire.
-
-Last tested on Citra Canary 1466.
+Last tested on Citra Canary 1492.
 
 ### Citra Setup
 
@@ -13,7 +11,7 @@ Last tested on Citra Canary 1466.
     * Note: If the command prompt says pip is not recognized then Python needs to be added to Path. The command prompt may also need to be ran in administrative mode.
  3. Download the latest release of Citra: https://citra-emu.org/download/
  4. Copy all the `.py` files in the `CitraRNG` folder of this repo into `<your Citra directory>/scripting`
- 5. Open Citra and your Gen 7 Pokemon ROM, and load your save file
+ 5. Open Citra and your Pokemon game, and load your save file
  6. Double-click the `main.py` file to run the script
  	  * Note: If this does not work then right click `main.py` and select `Edit with IDLE`. Make sure that you open with Python 3.7 if you have both Python2 and Python3 installed. Then hit `F5` to run the script.
  
