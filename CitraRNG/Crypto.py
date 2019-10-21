@@ -1,6 +1,5 @@
 import struct
-
-from Util import uint
+from util import uint
 
 blockPosition = [ 0, 1, 2, 3,
     0, 1, 3, 2,

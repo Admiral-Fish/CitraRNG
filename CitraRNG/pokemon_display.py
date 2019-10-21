@@ -1,7 +1,7 @@
 from PySide2.QtWidgets import QWidget
 from ui_PokemonDisplay import Ui_PokemonDisplay
-from Pokemon import Pokemon
-from Util import colorIV, colorPSV
+from pokemon import Pokemon
+from util import colorIV, colorPSV
 
 class PokemonDisplay(QWidget, Ui_PokemonDisplay):
     def __init__(self, parent = None):

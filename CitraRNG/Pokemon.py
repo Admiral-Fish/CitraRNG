@@ -1,6 +1,6 @@
-from Lookup import *
-from Crypto import decryptArray
-from Util import convertByte, convertWord, convertDWord
+import lookup
+from crypto import decryptArray
+from util import convertByte, convertWord, convertDWord
 
 class Pokemon:
     def __init__(self, data, flag = True):
@@ -16,10 +16,10 @@ class Pokemon:
         return convertWord(self.data, 0x8)
 
     def species(self):
-        return species[self.speciesNum()]
+        return lookup.species[self.speciesNum()]
 
     def heldItem(self):
-        return items[convertWord(self.data, 0xA)]
+        return lookup.items[convertWord(self.data, 0xA)]
 
     def TID(self):
         return convertWord(self.data, 0xC)
@@ -31,7 +31,7 @@ class Pokemon:
         return (self.TID() ^ self.SID()) >> 4
 
     def ability(self):
-        return abilities[convertByte(self.data, 0x14)]
+        return lookup.abilities[convertByte(self.data, 0x14)]
 
     def PID(self):
         return convertDWord(self.data, 0x18)
@@ -41,13 +41,13 @@ class Pokemon:
         return ((val >> 16) ^ (val & 0xffff)) >> 4
 
     def nature(self):
-        return natures[convertByte(self.data, 0x1C)]
+        return lookup.natures[convertByte(self.data, 0x1C)]
 
     def genderNum(self):
         return (convertByte(self.data, 0x1D) >> 1) & 3
 
     def gender(self):
-        return genders[self.genderNum()]
+        return lookup.genders[self.genderNum()]
 
     def EVHP(self):
         return convertByte(self.data, 0x1E)
@@ -68,16 +68,16 @@ class Pokemon:
         return convertByte(self.data, 0x21)
 
     def move1(self):
-        return moves[convertWord(self.data, 0x5A)]
+        return lookup.moves[convertWord(self.data, 0x5A)]
     
     def move2(self):
-        return moves[convertWord(self.data, 0x5C)]
+        return lookup.moves[convertWord(self.data, 0x5C)]
     
     def move3(self):
-        return moves[convertWord(self.data, 0x5E)]
+        return lookup.moves[convertWord(self.data, 0x5E)]
     
     def move4(self):
-        return moves[convertWord(self.data, 0x60)]
+        return lookup.moves[convertWord(self.data, 0x60)]
 
     def move1PP(self):
         return convertByte(self.data, 0x62)
@@ -116,7 +116,7 @@ class Pokemon:
         return int((((self.IVHP() & 1) + (self.IVAtk() & 1) * 2 + (self.IVDef() & 1) * 4 + (self.IVSpe() & 1) * 8 + (self.IVSpA() & 1) * 16 + (self.IVSpD() & 1) * 32) * 15) / 63)
 
     def hiddenPower(self):
-        return hiddenPowers[self.hiddenPowerNum()]
+        return lookup.hiddenPowers[self.hiddenPowerNum()]
 
     def currentHandler(self):
         return convertByte(self.data, 0x93)

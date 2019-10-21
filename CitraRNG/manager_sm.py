@@ -1,8 +1,8 @@
-from Manager import Manager
+from manager7 import Manager7
 
-class ManagerSM(Manager):
+class ManagerSM(Manager7):
     def __init__(self):
-        Manager.__init__(self)
+        Manager7.__init__(self)
 
     def getOffsets(self):
         self.partyAddress = 0x34195E10
@@ -22,5 +22,3 @@ class ManagerSM(Manager):
         self.eggAddress = 0x3313EDDC
         self.parent1Address = 0x3313EC01
         self.parent2Address = 0x3313ECEA
-
-        self.trainerID = 0x330D67D0

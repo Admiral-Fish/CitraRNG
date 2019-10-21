@@ -1,4 +1,4 @@
-from Util import uint
+from util import uint
 
 class SFMT:
     def __init__(self, seed):

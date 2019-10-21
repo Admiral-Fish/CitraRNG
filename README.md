@@ -1,6 +1,6 @@
 # CitraRNG
 
-RNG assistant developed with Python 3.7 and pyside2 for use with Pokémon XY v1.5, ORAS 1.4, and SM/USUM v1.2. Support for XY and ORAS is WIP.
+RNG assistant developed with Python 3.7 and pyside2 for use with Pokémon XY v1.5, ORAS 1.4, and SM/USUM v1.2.
 
 Last tested on Citra Canary 1492.
 
@@ -12,12 +12,11 @@ Last tested on Citra Canary 1492.
  3. Download the latest release of Citra: https://citra-emu.org/download/
  4. Copy all the `.py` files in the `CitraRNG` folder of this repo into `<your Citra directory>/scripting`
  5. Open Citra and your Pokemon game, and load your save file
- 6. Double-click the `main.py` file to run the script
+ 6. Double-click the `citrarng.py` file to run the script
  	  * Note: If this does not work then right click `main.py` and select `Edit with IDLE`. Make sure that you open with Python 3.7 if you have both Python2 and Python3 installed. Then hit `F5` to run the script.
  
- ## Known Issues
-  * None currently. Please report problems by creating a Github Issue.
- 
- ## Credits
+XY and ORAS require a patch to work. This does not modify the gamecode in anyway that would result in illegal pokemon. All it does is write the initial seed of the game to a unused part of memory that the script has access to later. You can read this [guide](https://pokemonrng.com/guides/tools/en/Using%20IPS%20Patches%20with%20Luma%20and%20Citra/) for information on how to setup the patch correctly.
+
+## Credits
  
  * EverOddish for their [great example](https://github.com/EverOddish/PokeStreamer-Tools/) of how to use scripting in Citra

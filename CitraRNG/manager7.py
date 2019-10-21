@@ -1,39 +1,36 @@
-from SFMT import SFMT
-from Pokemon import Pokemon
-from Util import readDWord, readByte
 from citra import Citra
+from pokemon import Pokemon
+from sfmt import SFMT
+from util import readByte, readDWord
 
-class Manager(object):
+class Manager7:
     def __init__(self):
         self.citra = Citra()
 
         self.partyAddress = None
         self.wildAddress = None
-        self.sosAddress = None
 
-        self.mainSeedAddress = None
-        self.mainSFMTStart = None
-        self.mainSFMTIndex = None
-
-        self.sosSeedAddress = None
-        self.sosSFMTStart = None
-        self.sosSFMTIndex = None
-        self.sosChainLength = None
+        self.initialSeed = None
+        self.seedAddress = None
+        self.sfmtStart = None
+        self.sfmtIndex = None
 
         self.eggReady = None
         self.eggAddress = None
         self.parent1Address = None
         self.parent2Address = None
 
-        self.trainerID = None
-
-        self.mainInitialSeed = None
+        self.sosSeedAddress = None
+        self.sosSFMTStart = None
+        self.sosSFMTIndex = None
+        self.sosChainLength = None
         self.sosInitialSeed = None
-        
+        self.sosAddress = None
+
         self.getOffsets()
-		
+
     def getOffsets(self):
-        pass            
+        pass
             
     def partyPokemon(self, index):
         address = self.partyAddress + (index * 484)
@@ -46,15 +43,6 @@ class Manager(object):
 
     def wildPokemon(self):
         address = self.wildAddress
-
-        blockData = self.citra.read_memory(address, 232)
-        statsData = self.citra.read_memory(address + 344, 22)
-        data = blockData + statsData
-
-        return Pokemon(data)
-
-    def sosPokemon(self, index):
-        address = self.sosAddress + (index * 484)
 
         blockData = self.citra.read_memory(address, 232)
         statsData = self.citra.read_memory(address + 344, 22)
@@ -77,50 +65,59 @@ class Manager(object):
     def eggStatus(self):
         val = readDWord(self.citra, self.eggReady)
 
-        seed3 = readDWord(self.citra, self.eggAddress)
-        seed2 = readDWord(self.citra, self.eggAddress + 4)
-        seed1 = readDWord(self.citra, self.eggAddress + 8)
-        seed0 = readDWord(self.citra, self.eggAddress + 12)
+        seed0 = readDWord(self.citra, self.eggAddress)
+        seed1 = readDWord(self.citra, self.eggAddress + 4)
+        seed2 = readDWord(self.citra, self.eggAddress + 8)
+        seed3 = readDWord(self.citra, self.eggAddress + 12)
 
         return [ val, seed3, seed2, seed1, seed0 ]
 
-    def readMainInitialSeed(self):
-        self.mainInitialSeed = readDWord(self.citra, self.mainSeedAddress)
-        self.mainSFMT = SFMT(self.mainInitialSeed)
-        self.mainCurrentSeed = self.mainInitialSeed
-        self.mainFrameCount = -1
+    def readInitialSeed(self):
+        self.initialSeed = readDWord(self.citra, self.seedAddress)
+        self.sfmt = SFMT(self.initialSeed)
+        self.currentSeed = self.initialSeed
+        self.frameCount = -1
 
-        return self.mainInitialSeed
+        return self.initialSeed
 
-    def updateMainFrameCount(self):        
-        currSeed = self.getMainCurrentSeed()
-        difference = self.mainFrameCount
+    def updateFrameCount(self):        
+        currSeed = self.getCurrentSeed()
+        difference = self.frameCount
         count = 0
 
-        while currSeed != self.mainCurrentSeed:
-            self.mainCurrentSeed = self.mainSFMT.nextULong()
+        while currSeed != self.currentSeed:
+            self.currentSeed = self.sfmt.nextULong()
             count += 1
 
             # Probably stuck in an infinite loop
             if count > 100000:
                 return None
 
-        self.mainFrameCount += count
-        difference = self.mainFrameCount - difference
-        return [ difference, self.mainInitialSeed, self.mainCurrentSeed, self.mainFrameCount, self.trainerShinyValue() ]
+        self.frameCount += count
+        difference = self.frameCount - difference
+        return [ difference, self.initialSeed, self.currentSeed, self.frameCount ]
 
-    def getMainCurrentSeed(self):
-        index = readDWord(self.citra, self.mainSFMTIndex)
+    def getCurrentSeed(self):
+        index = readDWord(self.citra, self.sfmtIndex)
 
         if index == 624:
-            pointer = self.mainSFMTStart
+            pointer = self.sfmtStart
         else:
-            pointer = self.mainSFMTStart + (index * 4)
+            pointer = self.sfmtStart + (index * 4)
 
         seed1 = readDWord(self.citra, pointer)
         seed2 = readDWord(self.citra, pointer + 4)
 
         return (seed2 << 32) | seed1
+
+    def sosPokemon(self, index):
+        address = self.sosAddress + (index * 484)
+
+        blockData = self.citra.read_memory(address, 232)
+        statsData = self.citra.read_memory(address + 344, 22)
+        data = blockData + statsData
+
+        return Pokemon(data)
 
     def readSOSInitialSeed(self):
         self.sosInitialSeed = readDWord(self.citra, self.sosSeedAddress)
@@ -161,10 +158,6 @@ class Manager(object):
         seed = readDWord(self.citra, pointer)
 
         return seed
-
-    def trainerShinyValue(self):
-        val = readDWord(self.citra, self.trainerID)
-        return ((val >> 16) ^ (val & 0xffff)) >> 4
 
     def sosChainCount(self):
         return readByte(self.citra, self.sosChainLength)
