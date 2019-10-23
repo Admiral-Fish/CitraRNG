@@ -90,7 +90,7 @@ class Manager7:
             count += 1
 
             # Probably stuck in an infinite loop
-            if count > 100000:
+            if count > 1000000:
                 return None
 
         self.frameCount += count
