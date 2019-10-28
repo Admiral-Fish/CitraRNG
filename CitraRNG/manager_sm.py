@@ -9,9 +9,9 @@ class ManagerSM(Manager7):
         self.wildAddress = 0x3002F7B8
         self.sosAddress = 0x3002F7B8
 
-        self.mainSeedAddress = 0x325A3878
-        self.mainSFMTStart = 0x33195B88
-        self.mainSFMTIndex = 0x33196548
+        self.seedAddress = 0x325A3878
+        self.sfmtStart = 0x33195B88
+        self.sfmtIndex = 0x33196548
 
         self.sosSeedAddress = 0x30038C44
         self.sosSFMTStart = 0x30038C44

@@ -323,7 +323,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.eggParent2_6.updateInformation(pkm)
 
     def updateMainPokemon7(self):
-        index = self.comboBoxMainIndex.currentIndex()
+        index = self.comboBoxMainIndex7.currentIndex()
 
         if index < 6:
             pkm = self.manager.partyPokemon(index)
