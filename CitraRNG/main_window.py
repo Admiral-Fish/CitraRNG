@@ -27,7 +27,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sosPokemon.setTitle("SOS Pokemon")
         
         self.pushButtonConnect.clicked.connect(self.connectCitra)
-        self.pushButtonDisconnect.clicked.connect(self.disconnectCitra)
         self.doubleSpinBoxDelay.valueChanged.connect(self.updateDelay)
         self.comboBoxGameSelection.currentIndexChanged.connect(self.updateGame)
 
@@ -61,74 +60,74 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.doubleSpinBoxDelay.setValue(self.delay)
 
     def connectCitra(self):
-        index = self.comboBoxGameSelection.currentIndex()
-        self.comboBoxGameSelection.setEnabled(False)
+        if self.pushButtonConnect.text() == "Connect":
+            self.pushButtonConnect.setText("Disconnect")
 
-        if index == 0:
-            self.manager = ManagerXY()
-        elif index == 1:
-            self.manager = ManagerORAS()
-        elif index == 2:
-            self.manager = ManagerSM()
+            index = self.comboBoxGameSelection.currentIndex()
+            self.comboBoxGameSelection.setEnabled(False)
+
+            if index == 0:
+                self.manager = ManagerXY()
+            elif index == 1:
+                self.manager = ManagerORAS()
+            elif index == 2:
+                self.manager = ManagerSM()
+            else:
+                self.manager = ManagerUSUM()
+
+            seed = self.manager.readInitialSeed()
+            if seed == 0:
+                message = QMessageBox()
+                message.setText("Initial seed not valid.\nCheck that you are using the correct game or the latest version of the game")
+                message.exec_()
+
+                self.manager = None
+                return
+
+            self.allowUpdate = True
+
+            self.toggleEnable(True, index)
+            self.labelStatus.setText("Connected")
+
+            self.mainRNG = False
+            self.eggRNG = False
+            self.sosRNG = False
+            
+            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateMainRNG6()"))
+            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateEggRNG6()"))
+            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateMainRNG7()"))
+            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateEggRNG7()"))
+            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateSOSRNG()"))
+            if index == 0 or index == 1:
+                self.update.connect(self.updateMainRNG6)
+                self.update.connect(self.updateEggRNG6)
+            else:
+                self.update.connect(self.updateMainRNG7)
+                self.update.connect(self.updateEggRNG7)
+                self.update.connect(self.updateSOSRNG)
+
+            t = threading.Thread(target=self.autoUpdate)
+            time.sleep(1)
+            t.start()
         else:
-            self.manager = ManagerUSUM()
+            self.pushButtonConnect.setText("Connect")
 
-        seed = self.manager.readInitialSeed()
-        if seed == 0:
-            message = QMessageBox()
-            message.setText("Initial seed not valid.\nCheck that you are using the correct game or the latest version of the game")
-            message.exec_()
-
+            self.allowUpdate = False
             self.manager = None
-            return
 
-        self.allowUpdate = True
+            self.toggleEnable(False, self.comboBoxGameSelection.currentIndex())
 
-        self.toggleEnable(True, index)
-        self.labelStatus.setText("Connected")
-        self.pushButtonConnect.setEnabled(False)
-        self.pushButtonDisconnect.setEnabled(True)
+            index = self.comboBoxGameSelection.currentIndex()
+            if index == 0 or index == 1:
+                self.pushButtonMainUpdate6.setText("Update")
+                self.pushButtonEggUpdate6.setText("Update")
+            else:
+                self.pushButtonMainUpdate7.setText("Update")
+                self.pushButtonEggUpdate7.setText("Update")
+                self.pushButtonSOSUpdate.setText("Update")
 
-        self.mainRNG = False
-        self.eggRNG = False
-        self.sosRNG = False
-        
-        QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateMainRNG6()"))
-        QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateEggRNG6()"))
-        QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateMainRNG7()"))
-        QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateEggRNG7()"))
-        QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateSOSRNG()"))
-        if index == 0 or index == 1:
-            self.update.connect(self.updateMainRNG6)
-            self.update.connect(self.updateEggRNG6)
-        else:
-            self.update.connect(self.updateMainRNG7)
-            self.update.connect(self.updateEggRNG7)
-            self.update.connect(self.updateSOSRNG)
-
-        t = threading.Thread(target=self.autoUpdate)
-        time.sleep(1)
-        t.start()
-
-    def disconnectCitra(self):
-        self.allowUpdate = False
-        self.manager = None
-
-        self.toggleEnable(False, self.comboBoxGameSelection.currentIndex())
-        self.pushButtonConnect.setEnabled(True)
-        self.pushButtonDisconnect.setEnabled(False)
-
-        index = self.comboBoxGameSelection.currentIndex()
-        if index == 0 or index == 1:
-            self.pushButtonMainUpdate6.setText("Update")
-            self.pushButtonEggUpdate6.setText("Update")
-        else:
-            self.pushButtonMainUpdate7.setText("Update")
-            self.pushButtonEggUpdate7.setText("Update")
-            self.pushButtonSOSUpdate.setText("Update")
-
-        self.labelStatus.setText("Disconnected")
-        self.comboBoxGameSelection.setEnabled(True)
+            self.labelStatus.setText("Disconnected")
+            self.comboBoxGameSelection.setEnabled(True)        
 
     def toggleEnable(self, flag, index):
         self.doubleSpinBoxDelay.setEnabled(flag)

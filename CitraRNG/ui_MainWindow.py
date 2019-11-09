@@ -3,8 +3,8 @@
 # Form implementation generated from reading ui file 'MainWindow.ui',
 # licensing of 'MainWindow.ui' applies.
 #
-# Created: Sun Oct 20 16:45:34 2019
-#      by: pyside2-uic  running on PySide2 5.13.1
+# Created: Fri Nov  8 21:13:25 2019
+#      by: pyside2-uic  running on PySide2 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -40,10 +40,6 @@ class Ui_MainWindow(object):
         self.labelUpdateDelay = QtWidgets.QLabel(self.groupBoxConnection)
         self.labelUpdateDelay.setObjectName("labelUpdateDelay")
         self.gridLayout_2.addWidget(self.labelUpdateDelay, 1, 0, 1, 1)
-        self.pushButtonDisconnect = QtWidgets.QPushButton(self.groupBoxConnection)
-        self.pushButtonDisconnect.setEnabled(False)
-        self.pushButtonDisconnect.setObjectName("pushButtonDisconnect")
-        self.gridLayout_2.addWidget(self.pushButtonDisconnect, 0, 2, 1, 1)
         self.labelStatus = QtWidgets.QLabel(self.groupBoxConnection)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(1)
@@ -533,7 +529,6 @@ class Ui_MainWindow(object):
         self.groupBoxConnection.setTitle(QtWidgets.QApplication.translate("MainWindow", "Connection", None, -1))
         self.pushButtonConnect.setText(QtWidgets.QApplication.translate("MainWindow", "Connect", None, -1))
         self.labelUpdateDelay.setText(QtWidgets.QApplication.translate("MainWindow", "Auto update delay(seconds):", None, -1))
-        self.pushButtonDisconnect.setText(QtWidgets.QApplication.translate("MainWindow", "Disconnect", None, -1))
         self.labelStatus.setText(QtWidgets.QApplication.translate("MainWindow", "Status: Not Connected", None, -1))
         self.comboBoxGameSelection.setItemText(0, QtWidgets.QApplication.translate("MainWindow", "XY", None, -1))
         self.comboBoxGameSelection.setItemText(1, QtWidgets.QApplication.translate("MainWindow", "ORAS", None, -1))
