@@ -22,6 +22,8 @@ class Manager6:
         self.parent1Address = None
         self.parent2Address = None
 
+        self.saveVariable = None
+
         self.getOffsets()
 
     def getOffsets(self):
@@ -104,7 +106,9 @@ class Manager6:
         tiny2 = readDWord(self.citra, self.tinyStart + 8)
         tiny3 = readDWord(self.citra, self.tinyStart + 12)
 
-        return [ difference, self.initialSeed, self.currentSeed, self.frameCount, tiny3, tiny2, tiny1, tiny0 ]
+        save = readDWord(self.citra, self.saveVariable)
+
+        return [ difference, self.initialSeed, self.currentSeed, self.frameCount, save, tiny3, tiny2, tiny1, tiny0 ]
 
     def getCurrentSeed(self):
         index = readDWord(self.citra, self.mtIndex)

@@ -20,6 +20,8 @@ class ManagerORAS(Manager6):
         self.parent1Address = 0x8C88180
         self.parent2Address = 0x8C88270
 
+        self.saveVariable = 0x8C71DB8
+
     def getWildOffset(self):
         pointer = readDWord(self.citra, 0x880313C) - 0x22C0
         if pointer < 0x8000000 or pointer > 0x8DF0000:

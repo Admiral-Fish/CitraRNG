@@ -20,6 +20,8 @@ class ManagerXY(Manager6):
         self.parent1Address = 0x8C7FF4C
         self.parent2Address = 0x8C8003C
 
+        self.saveVariable = 0x8C6A6A4
+
     def getWildOffset(self):
         pointer = readDWord(self.citra, 0x880313c) - 0xA1C
         if pointer < 0x8000000 or pointer > 0x8DF0000:

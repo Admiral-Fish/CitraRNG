@@ -177,10 +177,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.lineEditInitialSeed6.setText(hexify(values[1]))
             self.lineEditCurrentSeed6.setText(hexify(values[2]))
             self.lineEditFrame6.setText(str(values[3]))
-            self.lineEditTiny3.setText(hexify(values[4]))
-            self.lineEditTiny2.setText(hexify(values[5]))
-            self.lineEditTiny1.setText(hexify(values[6]))
-            self.lineEditTiny0.setText(hexify(values[7]))
+            self.lineEditSaveVariable.setText(hexify(values[4]))
+            self.lineEditTiny3.setText(hexify(values[5]))
+            self.lineEditTiny2.setText(hexify(values[6]))
+            self.lineEditTiny1.setText(hexify(values[7]))
+            self.lineEditTiny0.setText(hexify(values[8]))
 
     def toggleMainRNG6(self):
         if self.pushButtonMainUpdate6.text() == "Update":
