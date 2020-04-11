@@ -170,18 +170,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 return
 
+            difference, initialSeed, currentSeed, frameCount, save, tiny3, tiny2, tiny1, tiny0 = values
+            
             # Check to see if frame changed at all
-            if values[0] == 0:
-                return
-
-            self.lineEditInitialSeed6.setText(hexify(values[1]))
-            self.lineEditCurrentSeed6.setText(hexify(values[2]))
-            self.lineEditFrame6.setText(str(values[3]))
-            self.lineEditSaveVariable.setText(hexify(values[4]))
-            self.lineEditTiny3.setText(hexify(values[5]))
-            self.lineEditTiny2.setText(hexify(values[6]))
-            self.lineEditTiny1.setText(hexify(values[7]))
-            self.lineEditTiny0.setText(hexify(values[8]))
+            if difference != 0:
+                self.lineEditInitialSeed6.setText(hexify(initialSeed))
+                self.lineEditCurrentSeed6.setText(hexify(currentSeed))
+                self.lineEditFrame6.setText(str(frameCount))
+                self.lineEditSaveVariable.setText(hexify(save))
+                self.lineEditTiny3.setText(hexify(tiny3))
+                self.lineEditTiny2.setText(hexify(tiny2))
+                self.lineEditTiny1.setText(hexify(tiny1))
+                self.lineEditTiny0.setText(hexify(tiny0))
 
     def toggleMainRNG6(self):
         if self.pushButtonMainUpdate6.text() == "Update":
@@ -194,15 +194,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def updateEggRNG6(self):
         if self.eggRNG:
-            values = self.manager.eggStatus()
+            ready, seed1, seed0 = self.manager.eggStatus()
 
-            if values[0] == 0:
+            if ready == 0:
                 self.labelEggReadyStatus6.setText("No egg yet")
             else:
                 self.labelEggReadyStatus6.setText("Egg ready")
 
-            self.lineEditEggSeed1_6.setText(hexify(values[1]))
-            self.lineEditEggSeed0_6.setText(hexify(values[2]))
+            self.lineEditEggSeed1_6.setText(hexify(seed1))
+            self.lineEditEggSeed0_6.setText(hexify(seed0))
 
     def toggleEggRNG6(self):
         if self.pushButtonEggUpdate6.text() == "Update":
@@ -227,13 +227,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 return
 
-            # Check to see if frame changed at all
-            if values[0] == 0:
-                return
+            difference, initialSeed, currentSeed, frameCount = values
 
-            self.lineEditInitialSeed7.setText(hexify(values[1]))
-            self.lineEditCurrentSeed7.setText(hexify(values[2]))
-            self.lineEditFrame7.setText(str(values[3]))
+            # Check to see if frame changed at all
+            if difference != 0:
+                self.lineEditInitialSeed7.setText(hexify(initialSeed))
+                self.lineEditCurrentSeed7.setText(hexify(currentSeed))
+                self.lineEditFrame7.setText(str(frameCount))
 
     def toggleMainRNG7(self):
         if self.pushButtonMainUpdate7.text() == "Update":
@@ -246,17 +246,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def updateEggRNG7(self):
         if self.eggRNG:
-            values = self.manager.eggStatus()
+            ready, seed3, seed2, seed1, seed0 = self.manager.eggStatus()
 
-            if values[0] == 0:
+            if ready == 0:
                 self.labelEggReadyStatus7.setText("No egg yet")
             else:
                 self.labelEggReadyStatus7.setText("Egg ready")
 
-            self.lineEditEggSeed3_7.setText(hexify(values[1]))
-            self.lineEditEggSeed2_7.setText(hexify(values[2]))
-            self.lineEditEggSeed1_7.setText(hexify(values[3]))
-            self.lineEditEggSeed0_7.setText(hexify(values[4]))
+            self.lineEditEggSeed3_7.setText(hexify(seed3))
+            self.lineEditEggSeed2_7.setText(hexify(seed2))
+            self.lineEditEggSeed1_7.setText(hexify(seed1))
+            self.lineEditEggSeed0_7.setText(hexify(seed0))
 
     def toggleEggRNG7(self):
         if self.pushButtonEggUpdate7.text() == "Update":
@@ -283,14 +283,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.toggleSOSRNG()
                 return
             
-            # Check to see if frame changed at all
-            if values[0] == 0:
-                return
+            difference, initialSeed, currentSeed, frameCount, chainCount = values
 
-            self.lineEditSOSInitialSeed.setText(hexify(values[1]))
-            self.lineEditSOSCurrentSeed.setText(hexify(values[2]))
-            self.lineEditSOSFrame.setText(str(values[3]))
-            self.lineEditSOSChainCount.setText(str(values[4]))
+            # Check to see if frame changed at all
+            if difference != 0:
+                self.lineEditSOSInitialSeed.setText(hexify(initialSeed))
+                self.lineEditSOSCurrentSeed.setText(hexify(currentSeed))
+                self.lineEditSOSFrame.setText(str(frameCount))
+                self.lineEditSOSChainCount.setText(str(chainCount))
 
     def toggleSOSRNG(self):
         if self.pushButtonSOSUpdate.text() == "Update":

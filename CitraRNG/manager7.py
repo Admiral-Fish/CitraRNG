@@ -63,14 +63,14 @@ class Manager7:
         return Pokemon(data)
 
     def eggStatus(self):
-        val = readDWord(self.citra, self.eggReady)
+        ready = readDWord(self.citra, self.eggReady)
 
         seed0 = readDWord(self.citra, self.eggAddress)
         seed1 = readDWord(self.citra, self.eggAddress + 4)
         seed2 = readDWord(self.citra, self.eggAddress + 8)
         seed3 = readDWord(self.citra, self.eggAddress + 12)
 
-        return [ val, seed3, seed2, seed1, seed0 ]
+        return ready, seed3, seed2, seed1, seed0
 
     def readInitialSeed(self):
         self.initialSeed = readDWord(self.citra, self.seedAddress)
@@ -95,15 +95,11 @@ class Manager7:
 
         self.frameCount += count
         difference = self.frameCount - difference
-        return [ difference, self.initialSeed, self.currentSeed, self.frameCount ]
+        return difference, self.initialSeed, self.currentSeed, self.frameCount
 
     def getCurrentSeed(self):
         index = readDWord(self.citra, self.sfmtIndex)
-
-        if index == 624:
-            pointer = self.sfmtStart
-        else:
-            pointer = self.sfmtStart + (index * 4)
+        pointer = self.sfmtStart if index == 624 else self.sfmtStart + (index * 4)
 
         seed1 = readDWord(self.citra, pointer)
         seed2 = readDWord(self.citra, pointer + 4)
@@ -145,16 +141,11 @@ class Manager7:
             
         self.sosFrameCount += count
         difference = self.sosFrameCount - difference
-        return [ difference, self.sosInitialSeed, self.sosCurrentSeed, self.sosFrameCount, self.sosChainCount() ]
+        return difference, self.sosInitialSeed, self.sosCurrentSeed, self.sosFrameCount, self.sosChainCount()
 
     def getSOSCurrentSeed(self):
         index = readDWord(self.citra, self.sosSFMTIndex)
-
-        if index == 624:
-            pointer = self.sosSFMTStart
-        else:
-            pointer = self.sosSFMTStart + (index * 4)
-
+        pointer = self.sosSFMTStart if index == 624 else self.sosSFMTStart + (index * 4)
         seed = readDWord(self.citra, pointer)
 
         return seed

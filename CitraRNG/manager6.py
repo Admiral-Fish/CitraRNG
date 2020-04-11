@@ -51,10 +51,7 @@ class Manager6:
         pass
 
     def getParent(self, num):
-        if num == 1:
-            address = self.parent1Address
-        else:
-            address = self.parent2Address
+        address = self.parent1Address if num == 1 else self.parent2Address
 
         blockData = self.citra.read_memory(address, 232)
         statsData = self.citra.read_memory(address + 344, 22)
@@ -63,12 +60,12 @@ class Manager6:
         return Pokemon(data)
 
     def eggStatus(self):
-        val = readDWord(self.citra, self.eggReady)
+        ready = readDWord(self.citra, self.eggReady)
 
         seed0 = readDWord(self.citra, self.eggAddress)
         seed1 = readDWord(self.citra, self.eggAddress + 4)
 
-        return [ val, seed1, seed0 ]
+        return ready, seed1, seed0
 
     def readInitialSeed(self):
         self.initialSeed = readDWord(self.citra, self.seedAddress)
@@ -108,16 +105,11 @@ class Manager6:
 
         save = readDWord(self.citra, self.saveVariable)
 
-        return [ difference, self.initialSeed, self.currentSeed, self.frameCount, save, tiny3, tiny2, tiny1, tiny0 ]
+        return difference, self.initialSeed, self.currentSeed, self.frameCount, save, tiny3, tiny2, tiny1, tiny0
 
     def getCurrentSeed(self):
         index = readDWord(self.citra, self.mtIndex)
-
-        if index == 624:
-            pointer = self.mtStart
-        else:
-            pointer = self.mtStart + (index * 4)
-
+        pointer = self.mtStart if index == 624 else self.mtStart + (index * 4)
         seed = readDWord(self.citra, pointer)
 
         return seed
