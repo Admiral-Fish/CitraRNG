@@ -1,6 +1,6 @@
 import threading
 import time
-from PySide2.QtCore import QObject, QSettings, Signal, Slot, SIGNAL, SLOT
+from PySide2.QtCore import QObject, QSettings, Signal, Slot
 from PySide2.QtWidgets import QMainWindow, QMessageBox
 from ui_MainWindow import Ui_MainWindow
 from manager_oras import ManagerORAS
@@ -93,11 +93,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.eggRNG = False
             self.sosRNG = False
             
-            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateMainRNG6()"))
-            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateEggRNG6()"))
-            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateMainRNG7()"))
-            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateEggRNG7()"))
-            QObject.disconnect(self, SIGNAL("update()"), self, SLOT("updateSOSRNG()"))
             if index == 0 or index == 1:
                 self.update.connect(self.updateMainRNG6)
                 self.update.connect(self.updateEggRNG6)
@@ -116,6 +111,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.manager = None
 
             self.toggleEnable(False, self.comboBoxGameSelection.currentIndex())
+
+            try:
+                self.update.disconnect()
+            except:
+                pass
 
             index = self.comboBoxGameSelection.currentIndex()
             if index == 0 or index == 1:
