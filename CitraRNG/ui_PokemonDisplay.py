@@ -1,233 +1,349 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'PokemonDisplay.ui',
-# licensing of 'PokemonDisplay.ui' applies.
-#
-# Created: Sat Feb 23 00:00:09 2019
-#      by: pyside2-uic  running on PySide2 5.12.1
-#
-# WARNING! All changes made in this file will be lost!
+################################################################################
+## Form generated from reading UI file 'PokemonDisplay.ui'
+##
+## Created by: Qt User Interface Compiler version 5.15.0
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QMetaObject,
+    QObject, QPoint, QRect, QSize, QTime, QUrl, Qt)
+from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
+    QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter,
+    QPixmap, QRadialGradient)
+from PySide2.QtWidgets import *
+
 
 class Ui_PokemonDisplay(object):
     def setupUi(self, PokemonDisplay):
-        PokemonDisplay.setObjectName("PokemonDisplay")
+        if not PokemonDisplay.objectName():
+            PokemonDisplay.setObjectName(u"PokemonDisplay")
         PokemonDisplay.resize(195, 434)
-        self.gridLayout = QtWidgets.QGridLayout(PokemonDisplay)
-        self.gridLayout.setObjectName("gridLayout")
-        self.groupBoxPokemon = QtWidgets.QGroupBox(PokemonDisplay)
-        self.groupBoxPokemon.setObjectName("groupBoxPokemon")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBoxPokemon)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.gridLayoutCharacteristics = QtWidgets.QGridLayout()
-        self.gridLayoutCharacteristics.setObjectName("gridLayoutCharacteristics")
-        self.labelSpecies = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpecies.setObjectName("labelSpecies")
+        self.gridLayout = QGridLayout(PokemonDisplay)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.groupBoxPokemon = QGroupBox(PokemonDisplay)
+        self.groupBoxPokemon.setObjectName(u"groupBoxPokemon")
+        self.gridLayout_2 = QGridLayout(self.groupBoxPokemon)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.gridLayoutCharacteristics = QGridLayout()
+        self.gridLayoutCharacteristics.setObjectName(u"gridLayoutCharacteristics")
+        self.labelSpecies = QLabel(self.groupBoxPokemon)
+        self.labelSpecies.setObjectName(u"labelSpecies")
+
         self.gridLayoutCharacteristics.addWidget(self.labelSpecies, 0, 0, 1, 1)
-        self.labelSpeciesValue = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpeciesValue.setObjectName("labelSpeciesValue")
+
+        self.labelSpeciesValue = QLabel(self.groupBoxPokemon)
+        self.labelSpeciesValue.setObjectName(u"labelSpeciesValue")
+
         self.gridLayoutCharacteristics.addWidget(self.labelSpeciesValue, 0, 1, 1, 1)
-        self.labelGender = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelGender.setObjectName("labelGender")
+
+        self.labelGender = QLabel(self.groupBoxPokemon)
+        self.labelGender.setObjectName(u"labelGender")
+
         self.gridLayoutCharacteristics.addWidget(self.labelGender, 1, 0, 1, 1)
-        self.labelGenderValue = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelGenderValue.setObjectName("labelGenderValue")
+
+        self.labelGenderValue = QLabel(self.groupBoxPokemon)
+        self.labelGenderValue.setObjectName(u"labelGenderValue")
+
         self.gridLayoutCharacteristics.addWidget(self.labelGenderValue, 1, 1, 1, 1)
-        self.labelNature = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelNature.setObjectName("labelNature")
+
+        self.labelNature = QLabel(self.groupBoxPokemon)
+        self.labelNature.setObjectName(u"labelNature")
+
         self.gridLayoutCharacteristics.addWidget(self.labelNature, 2, 0, 1, 1)
-        self.labelNatureValue = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelNatureValue.setObjectName("labelNatureValue")
+
+        self.labelNatureValue = QLabel(self.groupBoxPokemon)
+        self.labelNatureValue.setObjectName(u"labelNatureValue")
+
         self.gridLayoutCharacteristics.addWidget(self.labelNatureValue, 2, 1, 1, 1)
-        self.labelAbility = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelAbility.setObjectName("labelAbility")
+
+        self.labelAbility = QLabel(self.groupBoxPokemon)
+        self.labelAbility.setObjectName(u"labelAbility")
+
         self.gridLayoutCharacteristics.addWidget(self.labelAbility, 3, 0, 1, 1)
-        self.labelAbilityValue = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelAbilityValue.setObjectName("labelAbilityValue")
+
+        self.labelAbilityValue = QLabel(self.groupBoxPokemon)
+        self.labelAbilityValue.setObjectName(u"labelAbilityValue")
+
         self.gridLayoutCharacteristics.addWidget(self.labelAbilityValue, 3, 1, 1, 1)
-        self.labelItem = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelItem.setObjectName("labelItem")
+
+        self.labelItem = QLabel(self.groupBoxPokemon)
+        self.labelItem.setObjectName(u"labelItem")
+
         self.gridLayoutCharacteristics.addWidget(self.labelItem, 4, 0, 1, 1)
-        self.labelItemValue = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelItemValue.setObjectName("labelItemValue")
+
+        self.labelItemValue = QLabel(self.groupBoxPokemon)
+        self.labelItemValue.setObjectName(u"labelItemValue")
+
         self.gridLayoutCharacteristics.addWidget(self.labelItemValue, 4, 1, 1, 1)
-        self.labelSV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSV.setObjectName("labelSV")
+
+        self.labelSV = QLabel(self.groupBoxPokemon)
+        self.labelSV.setObjectName(u"labelSV")
+
         self.gridLayoutCharacteristics.addWidget(self.labelSV, 5, 0, 1, 1)
-        self.labelSVValue = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSVValue.setObjectName("labelSVValue")
+
+        self.labelSVValue = QLabel(self.groupBoxPokemon)
+        self.labelSVValue.setObjectName(u"labelSVValue")
+
         self.gridLayoutCharacteristics.addWidget(self.labelSVValue, 5, 1, 1, 1)
-        self.labelHiddenPower = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelHiddenPower.setObjectName("labelHiddenPower")
+
+        self.labelHiddenPower = QLabel(self.groupBoxPokemon)
+        self.labelHiddenPower.setObjectName(u"labelHiddenPower")
+
         self.gridLayoutCharacteristics.addWidget(self.labelHiddenPower, 6, 0, 1, 1)
-        self.labelHiddenPowerValue = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelHiddenPowerValue.setObjectName("labelHiddenPowerValue")
+
+        self.labelHiddenPowerValue = QLabel(self.groupBoxPokemon)
+        self.labelHiddenPowerValue.setObjectName(u"labelHiddenPowerValue")
+
         self.gridLayoutCharacteristics.addWidget(self.labelHiddenPowerValue, 6, 1, 1, 1)
-        self.labelFriendship = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelFriendship.setObjectName("labelFriendship")
+
+        self.labelFriendship = QLabel(self.groupBoxPokemon)
+        self.labelFriendship.setObjectName(u"labelFriendship")
+
         self.gridLayoutCharacteristics.addWidget(self.labelFriendship, 7, 0, 1, 1)
-        self.labelFriendshipValue = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelFriendshipValue.setObjectName("labelFriendshipValue")
+
+        self.labelFriendshipValue = QLabel(self.groupBoxPokemon)
+        self.labelFriendshipValue.setObjectName(u"labelFriendshipValue")
+
         self.gridLayoutCharacteristics.addWidget(self.labelFriendshipValue, 7, 1, 1, 1)
+
+
         self.gridLayout_2.addLayout(self.gridLayoutCharacteristics, 1, 0, 1, 1)
-        self.pushButtonUpdate = QtWidgets.QPushButton(self.groupBoxPokemon)
+
+        self.pushButtonUpdate = QPushButton(self.groupBoxPokemon)
+        self.pushButtonUpdate.setObjectName(u"pushButtonUpdate")
         self.pushButtonUpdate.setEnabled(False)
-        self.pushButtonUpdate.setObjectName("pushButtonUpdate")
+
         self.gridLayout_2.addWidget(self.pushButtonUpdate, 0, 0, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem, 2, 0, 1, 1)
-        self.gridLayoutMoves = QtWidgets.QGridLayout()
-        self.gridLayoutMoves.setObjectName("gridLayoutMoves")
-        self.labelMove1 = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove1.setObjectName("labelMove1")
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_2.addItem(self.verticalSpacer, 2, 0, 1, 1)
+
+        self.gridLayoutMoves = QGridLayout()
+        self.gridLayoutMoves.setObjectName(u"gridLayoutMoves")
+        self.labelMove1 = QLabel(self.groupBoxPokemon)
+        self.labelMove1.setObjectName(u"labelMove1")
+
         self.gridLayoutMoves.addWidget(self.labelMove1, 0, 0, 1, 1)
-        self.labelMove1Name = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove1Name.setObjectName("labelMove1Name")
+
+        self.labelMove1Name = QLabel(self.groupBoxPokemon)
+        self.labelMove1Name.setObjectName(u"labelMove1Name")
+
         self.gridLayoutMoves.addWidget(self.labelMove1Name, 0, 1, 1, 1)
-        self.labelMove1PP = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove1PP.setObjectName("labelMove1PP")
+
+        self.labelMove1PP = QLabel(self.groupBoxPokemon)
+        self.labelMove1PP.setObjectName(u"labelMove1PP")
+
         self.gridLayoutMoves.addWidget(self.labelMove1PP, 0, 2, 1, 1)
-        self.labelMove2 = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove2.setObjectName("labelMove2")
+
+        self.labelMove2 = QLabel(self.groupBoxPokemon)
+        self.labelMove2.setObjectName(u"labelMove2")
+
         self.gridLayoutMoves.addWidget(self.labelMove2, 1, 0, 1, 1)
-        self.labelMove2Name = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove2Name.setObjectName("labelMove2Name")
+
+        self.labelMove2Name = QLabel(self.groupBoxPokemon)
+        self.labelMove2Name.setObjectName(u"labelMove2Name")
+
         self.gridLayoutMoves.addWidget(self.labelMove2Name, 1, 1, 1, 1)
-        self.labelMove2PP = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove2PP.setObjectName("labelMove2PP")
+
+        self.labelMove2PP = QLabel(self.groupBoxPokemon)
+        self.labelMove2PP.setObjectName(u"labelMove2PP")
+
         self.gridLayoutMoves.addWidget(self.labelMove2PP, 1, 2, 1, 1)
-        self.labelMove3 = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove3.setObjectName("labelMove3")
+
+        self.labelMove3 = QLabel(self.groupBoxPokemon)
+        self.labelMove3.setObjectName(u"labelMove3")
+
         self.gridLayoutMoves.addWidget(self.labelMove3, 2, 0, 1, 1)
-        self.labelMove3Name = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove3Name.setObjectName("labelMove3Name")
+
+        self.labelMove3Name = QLabel(self.groupBoxPokemon)
+        self.labelMove3Name.setObjectName(u"labelMove3Name")
+
         self.gridLayoutMoves.addWidget(self.labelMove3Name, 2, 1, 1, 1)
-        self.labelMove3PP = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove3PP.setObjectName("labelMove3PP")
+
+        self.labelMove3PP = QLabel(self.groupBoxPokemon)
+        self.labelMove3PP.setObjectName(u"labelMove3PP")
+
         self.gridLayoutMoves.addWidget(self.labelMove3PP, 2, 2, 1, 1)
-        self.labelMove4 = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove4.setObjectName("labelMove4")
+
+        self.labelMove4 = QLabel(self.groupBoxPokemon)
+        self.labelMove4.setObjectName(u"labelMove4")
+
         self.gridLayoutMoves.addWidget(self.labelMove4, 3, 0, 1, 1)
-        self.labelMove4Name = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove4Name.setObjectName("labelMove4Name")
+
+        self.labelMove4Name = QLabel(self.groupBoxPokemon)
+        self.labelMove4Name.setObjectName(u"labelMove4Name")
+
         self.gridLayoutMoves.addWidget(self.labelMove4Name, 3, 1, 1, 1)
-        self.labelMove4PP = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelMove4PP.setObjectName("labelMove4PP")
+
+        self.labelMove4PP = QLabel(self.groupBoxPokemon)
+        self.labelMove4PP.setObjectName(u"labelMove4PP")
+
         self.gridLayoutMoves.addWidget(self.labelMove4PP, 3, 2, 1, 1)
+
+
         self.gridLayout_2.addLayout(self.gridLayoutMoves, 5, 0, 1, 1)
-        self.gridLayoutStats = QtWidgets.QGridLayout()
-        self.gridLayoutStats.setObjectName("gridLayoutStats")
-        self.labelAtk = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelAtk.setObjectName("labelAtk")
+
+        self.gridLayoutStats = QGridLayout()
+        self.gridLayoutStats.setObjectName(u"gridLayoutStats")
+        self.labelAtk = QLabel(self.groupBoxPokemon)
+        self.labelAtk.setObjectName(u"labelAtk")
+
         self.gridLayoutStats.addWidget(self.labelAtk, 1, 0, 1, 1)
-        self.labelDefEV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelDefEV.setObjectName("labelDefEV")
+
+        self.labelDefEV = QLabel(self.groupBoxPokemon)
+        self.labelDefEV.setObjectName(u"labelDefEV")
+
         self.gridLayoutStats.addWidget(self.labelDefEV, 2, 2, 1, 1)
-        self.labelSpAIV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpAIV.setObjectName("labelSpAIV")
+
+        self.labelSpAIV = QLabel(self.groupBoxPokemon)
+        self.labelSpAIV.setObjectName(u"labelSpAIV")
+
         self.gridLayoutStats.addWidget(self.labelSpAIV, 3, 1, 1, 1)
-        self.labelSpA = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpA.setObjectName("labelSpA")
+
+        self.labelSpA = QLabel(self.groupBoxPokemon)
+        self.labelSpA.setObjectName(u"labelSpA")
+
         self.gridLayoutStats.addWidget(self.labelSpA, 3, 0, 1, 1)
-        self.labelDefIV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelDefIV.setObjectName("labelDefIV")
+
+        self.labelDefIV = QLabel(self.groupBoxPokemon)
+        self.labelDefIV.setObjectName(u"labelDefIV")
+
         self.gridLayoutStats.addWidget(self.labelDefIV, 2, 1, 1, 1)
-        self.labelHP = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelHP.setObjectName("labelHP")
+
+        self.labelHP = QLabel(self.groupBoxPokemon)
+        self.labelHP.setObjectName(u"labelHP")
+
         self.gridLayoutStats.addWidget(self.labelHP, 0, 0, 1, 1)
-        self.labelSpAEV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpAEV.setObjectName("labelSpAEV")
+
+        self.labelSpAEV = QLabel(self.groupBoxPokemon)
+        self.labelSpAEV.setObjectName(u"labelSpAEV")
+
         self.gridLayoutStats.addWidget(self.labelSpAEV, 3, 2, 1, 1)
-        self.labelSpD = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpD.setObjectName("labelSpD")
+
+        self.labelSpD = QLabel(self.groupBoxPokemon)
+        self.labelSpD.setObjectName(u"labelSpD")
+
         self.gridLayoutStats.addWidget(self.labelSpD, 4, 0, 1, 1)
-        self.labelHPIV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelHPIV.setObjectName("labelHPIV")
+
+        self.labelHPIV = QLabel(self.groupBoxPokemon)
+        self.labelHPIV.setObjectName(u"labelHPIV")
+
         self.gridLayoutStats.addWidget(self.labelHPIV, 0, 1, 1, 1)
-        self.labelHPEV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelHPEV.setObjectName("labelHPEV")
+
+        self.labelHPEV = QLabel(self.groupBoxPokemon)
+        self.labelHPEV.setObjectName(u"labelHPEV")
+
         self.gridLayoutStats.addWidget(self.labelHPEV, 0, 2, 1, 1)
-        self.labelAtkEV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelAtkEV.setObjectName("labelAtkEV")
+
+        self.labelAtkEV = QLabel(self.groupBoxPokemon)
+        self.labelAtkEV.setObjectName(u"labelAtkEV")
+
         self.gridLayoutStats.addWidget(self.labelAtkEV, 1, 2, 1, 1)
-        self.labelDef = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelDef.setObjectName("labelDef")
+
+        self.labelDef = QLabel(self.groupBoxPokemon)
+        self.labelDef.setObjectName(u"labelDef")
+
         self.gridLayoutStats.addWidget(self.labelDef, 2, 0, 1, 1)
-        self.labelAtkIV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelAtkIV.setObjectName("labelAtkIV")
+
+        self.labelAtkIV = QLabel(self.groupBoxPokemon)
+        self.labelAtkIV.setObjectName(u"labelAtkIV")
+
         self.gridLayoutStats.addWidget(self.labelAtkIV, 1, 1, 1, 1)
-        self.labelSpDIV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpDIV.setObjectName("labelSpDIV")
+
+        self.labelSpDIV = QLabel(self.groupBoxPokemon)
+        self.labelSpDIV.setObjectName(u"labelSpDIV")
+
         self.gridLayoutStats.addWidget(self.labelSpDIV, 4, 1, 1, 1)
-        self.labelSpeEV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpeEV.setObjectName("labelSpeEV")
+
+        self.labelSpeEV = QLabel(self.groupBoxPokemon)
+        self.labelSpeEV.setObjectName(u"labelSpeEV")
+
         self.gridLayoutStats.addWidget(self.labelSpeEV, 5, 2, 1, 1)
-        self.labelSpeIV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpeIV.setObjectName("labelSpeIV")
+
+        self.labelSpeIV = QLabel(self.groupBoxPokemon)
+        self.labelSpeIV.setObjectName(u"labelSpeIV")
+
         self.gridLayoutStats.addWidget(self.labelSpeIV, 5, 1, 1, 1)
-        self.labelSpDEV = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpDEV.setObjectName("labelSpDEV")
+
+        self.labelSpDEV = QLabel(self.groupBoxPokemon)
+        self.labelSpDEV.setObjectName(u"labelSpDEV")
+
         self.gridLayoutStats.addWidget(self.labelSpDEV, 4, 2, 1, 1)
-        self.labelSpe = QtWidgets.QLabel(self.groupBoxPokemon)
-        self.labelSpe.setObjectName("labelSpe")
+
+        self.labelSpe = QLabel(self.groupBoxPokemon)
+        self.labelSpe.setObjectName(u"labelSpe")
+
         self.gridLayoutStats.addWidget(self.labelSpe, 5, 0, 1, 1)
+
+
         self.gridLayout_2.addLayout(self.gridLayoutStats, 3, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem1, 4, 0, 1, 1)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_2, 4, 0, 1, 1)
+
+
         self.gridLayout.addWidget(self.groupBoxPokemon, 0, 0, 1, 1)
 
+
         self.retranslateUi(PokemonDisplay)
-        QtCore.QMetaObject.connectSlotsByName(PokemonDisplay)
+
+        QMetaObject.connectSlotsByName(PokemonDisplay)
+    # setupUi
 
     def retranslateUi(self, PokemonDisplay):
-        PokemonDisplay.setWindowTitle(QtWidgets.QApplication.translate("PokemonDisplay", "Pokemon", None, -1))
-        self.groupBoxPokemon.setTitle(QtWidgets.QApplication.translate("PokemonDisplay", "Pokemon", None, -1))
-        self.labelSpecies.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Species:", None, -1))
-        self.labelSpeciesValue.setText(QtWidgets.QApplication.translate("PokemonDisplay", "None", None, -1))
-        self.labelGender.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Gender:", None, -1))
-        self.labelGenderValue.setText(QtWidgets.QApplication.translate("PokemonDisplay", "None", None, -1))
-        self.labelNature.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Nature:", None, -1))
-        self.labelNatureValue.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Hardy", None, -1))
-        self.labelAbility.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Ability:", None, -1))
-        self.labelAbilityValue.setText(QtWidgets.QApplication.translate("PokemonDisplay", "None", None, -1))
-        self.labelItem.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Item:", None, -1))
-        self.labelItemValue.setText(QtWidgets.QApplication.translate("PokemonDisplay", "None", None, -1))
-        self.labelSV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "PSV/TSV:", None, -1))
-        self.labelSVValue.setText(QtWidgets.QApplication.translate("PokemonDisplay", "0000/0000", None, -1))
-        self.labelHiddenPower.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Hidden Power:", None, -1))
-        self.labelHiddenPowerValue.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Fighting", None, -1))
-        self.labelFriendship.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Friendship:", None, -1))
-        self.labelFriendshipValue.setText(QtWidgets.QApplication.translate("PokemonDisplay", "0", None, -1))
-        self.pushButtonUpdate.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Update", None, -1))
-        self.labelMove1.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Move 1:", None, -1))
-        self.labelMove1Name.setText(QtWidgets.QApplication.translate("PokemonDisplay", "None", None, -1))
-        self.labelMove1PP.setText(QtWidgets.QApplication.translate("PokemonDisplay", "PP: 0", None, -1))
-        self.labelMove2.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Move 2:", None, -1))
-        self.labelMove2Name.setText(QtWidgets.QApplication.translate("PokemonDisplay", "None", None, -1))
-        self.labelMove2PP.setText(QtWidgets.QApplication.translate("PokemonDisplay", "PP: 0", None, -1))
-        self.labelMove3.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Move 3:", None, -1))
-        self.labelMove3Name.setText(QtWidgets.QApplication.translate("PokemonDisplay", "None", None, -1))
-        self.labelMove3PP.setText(QtWidgets.QApplication.translate("PokemonDisplay", "PP: 0", None, -1))
-        self.labelMove4.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Move 4:", None, -1))
-        self.labelMove4Name.setText(QtWidgets.QApplication.translate("PokemonDisplay", "None", None, -1))
-        self.labelMove4PP.setText(QtWidgets.QApplication.translate("PokemonDisplay", "PP: 0", None, -1))
-        self.labelAtk.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Atk: 0", None, -1))
-        self.labelDefEV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "EV: 0", None, -1))
-        self.labelSpAIV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "IV: 0", None, -1))
-        self.labelSpA.setText(QtWidgets.QApplication.translate("PokemonDisplay", "SpA: 0", None, -1))
-        self.labelDefIV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "IV: 0", None, -1))
-        self.labelHP.setText(QtWidgets.QApplication.translate("PokemonDisplay", "HP: 0/0", None, -1))
-        self.labelSpAEV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "EV: 0", None, -1))
-        self.labelSpD.setText(QtWidgets.QApplication.translate("PokemonDisplay", "SpD: 0", None, -1))
-        self.labelHPIV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "IV: 0", None, -1))
-        self.labelHPEV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "EV: 0", None, -1))
-        self.labelAtkEV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "EV: 0", None, -1))
-        self.labelDef.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Def: 0", None, -1))
-        self.labelAtkIV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "IV: 0", None, -1))
-        self.labelSpDIV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "IV: 0", None, -1))
-        self.labelSpeEV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "EV: 0", None, -1))
-        self.labelSpeIV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "IV: 0", None, -1))
-        self.labelSpDEV.setText(QtWidgets.QApplication.translate("PokemonDisplay", "EV: 0", None, -1))
-        self.labelSpe.setText(QtWidgets.QApplication.translate("PokemonDisplay", "Spe: 0", None, -1))
+        PokemonDisplay.setWindowTitle(QCoreApplication.translate("PokemonDisplay", u"Pokemon", None))
+        self.groupBoxPokemon.setTitle(QCoreApplication.translate("PokemonDisplay", u"Pokemon", None))
+        self.labelSpecies.setText(QCoreApplication.translate("PokemonDisplay", u"Species:", None))
+        self.labelSpeciesValue.setText(QCoreApplication.translate("PokemonDisplay", u"None", None))
+        self.labelGender.setText(QCoreApplication.translate("PokemonDisplay", u"Gender:", None))
+        self.labelGenderValue.setText(QCoreApplication.translate("PokemonDisplay", u"None", None))
+        self.labelNature.setText(QCoreApplication.translate("PokemonDisplay", u"Nature:", None))
+        self.labelNatureValue.setText(QCoreApplication.translate("PokemonDisplay", u"Hardy", None))
+        self.labelAbility.setText(QCoreApplication.translate("PokemonDisplay", u"Ability:", None))
+        self.labelAbilityValue.setText(QCoreApplication.translate("PokemonDisplay", u"None", None))
+        self.labelItem.setText(QCoreApplication.translate("PokemonDisplay", u"Item:", None))
+        self.labelItemValue.setText(QCoreApplication.translate("PokemonDisplay", u"None", None))
+        self.labelSV.setText(QCoreApplication.translate("PokemonDisplay", u"PSV/TSV:", None))
+        self.labelSVValue.setText(QCoreApplication.translate("PokemonDisplay", u"0000/0000", None))
+        self.labelHiddenPower.setText(QCoreApplication.translate("PokemonDisplay", u"Hidden Power:", None))
+        self.labelHiddenPowerValue.setText(QCoreApplication.translate("PokemonDisplay", u"Fighting", None))
+        self.labelFriendship.setText(QCoreApplication.translate("PokemonDisplay", u"Friendship:", None))
+        self.labelFriendshipValue.setText(QCoreApplication.translate("PokemonDisplay", u"0", None))
+        self.pushButtonUpdate.setText(QCoreApplication.translate("PokemonDisplay", u"Update", None))
+        self.labelMove1.setText(QCoreApplication.translate("PokemonDisplay", u"Move 1:", None))
+        self.labelMove1Name.setText(QCoreApplication.translate("PokemonDisplay", u"None", None))
+        self.labelMove1PP.setText(QCoreApplication.translate("PokemonDisplay", u"PP: 0", None))
+        self.labelMove2.setText(QCoreApplication.translate("PokemonDisplay", u"Move 2:", None))
+        self.labelMove2Name.setText(QCoreApplication.translate("PokemonDisplay", u"None", None))
+        self.labelMove2PP.setText(QCoreApplication.translate("PokemonDisplay", u"PP: 0", None))
+        self.labelMove3.setText(QCoreApplication.translate("PokemonDisplay", u"Move 3:", None))
+        self.labelMove3Name.setText(QCoreApplication.translate("PokemonDisplay", u"None", None))
+        self.labelMove3PP.setText(QCoreApplication.translate("PokemonDisplay", u"PP: 0", None))
+        self.labelMove4.setText(QCoreApplication.translate("PokemonDisplay", u"Move 4:", None))
+        self.labelMove4Name.setText(QCoreApplication.translate("PokemonDisplay", u"None", None))
+        self.labelMove4PP.setText(QCoreApplication.translate("PokemonDisplay", u"PP: 0", None))
+        self.labelAtk.setText(QCoreApplication.translate("PokemonDisplay", u"Atk: 0", None))
+        self.labelDefEV.setText(QCoreApplication.translate("PokemonDisplay", u"EV: 0", None))
+        self.labelSpAIV.setText(QCoreApplication.translate("PokemonDisplay", u"IV: 0", None))
+        self.labelSpA.setText(QCoreApplication.translate("PokemonDisplay", u"SpA: 0", None))
+        self.labelDefIV.setText(QCoreApplication.translate("PokemonDisplay", u"IV: 0", None))
+        self.labelHP.setText(QCoreApplication.translate("PokemonDisplay", u"HP: 0/0", None))
+        self.labelSpAEV.setText(QCoreApplication.translate("PokemonDisplay", u"EV: 0", None))
+        self.labelSpD.setText(QCoreApplication.translate("PokemonDisplay", u"SpD: 0", None))
+        self.labelHPIV.setText(QCoreApplication.translate("PokemonDisplay", u"IV: 0", None))
+        self.labelHPEV.setText(QCoreApplication.translate("PokemonDisplay", u"EV: 0", None))
+        self.labelAtkEV.setText(QCoreApplication.translate("PokemonDisplay", u"EV: 0", None))
+        self.labelDef.setText(QCoreApplication.translate("PokemonDisplay", u"Def: 0", None))
+        self.labelAtkIV.setText(QCoreApplication.translate("PokemonDisplay", u"IV: 0", None))
+        self.labelSpDIV.setText(QCoreApplication.translate("PokemonDisplay", u"IV: 0", None))
+        self.labelSpeEV.setText(QCoreApplication.translate("PokemonDisplay", u"EV: 0", None))
+        self.labelSpeIV.setText(QCoreApplication.translate("PokemonDisplay", u"IV: 0", None))
+        self.labelSpDEV.setText(QCoreApplication.translate("PokemonDisplay", u"EV: 0", None))
+        self.labelSpe.setText(QCoreApplication.translate("PokemonDisplay", u"Spe: 0", None))
+    # retranslateUi
 

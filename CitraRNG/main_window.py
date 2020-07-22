@@ -127,7 +127,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.pushButtonSOSUpdate.setText("Update")
 
             self.labelStatus.setText("Disconnected")
-            self.comboBoxGameSelection.setEnabled(True)        
+            self.comboBoxGameSelection.setEnabled(True)      
 
     def toggleEnable(self, flag, index):
         self.doubleSpinBoxDelay.setEnabled(flag)
