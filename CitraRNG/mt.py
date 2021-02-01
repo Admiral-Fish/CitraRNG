@@ -25,6 +25,7 @@ class MT:
         y = self.mt[self.index]
         self.index += 1
 
+        # Results are stored untempered in memory
         #y ^= (y >> 11)
         #y ^= (y << 7) & 0x9D2C5680
         #y ^= (y << 15) & 0xEFC60000

@@ -17,27 +17,15 @@ class SFMT:
             y = 0x6C078965 * (self.sfmt[i - 1] ^ (self.sfmt[i - 1] >> 30)) + i
             self.sfmt.append(uint(y))
 
-        self.periodCertificaion()
+        inner = self.seed & 1
+        inner ^= self.sfmt[3] & 0x13c9e684
+        inner ^= inner >> 16
+        inner ^= inner >> 8
+        inner ^= inner >> 4
+        inner ^= inner >> 2
+        inner ^= inner >> 1
 
-    def periodCertificaion(self):
-        inner = 0
-        work = 0
-        parity = [ 0x1, 0x0, 0x0, 0x13c9e684 ]
-
-        for i in range(4):
-            inner ^= self.sfmt[i] & parity[i]
-        for i in [ 16, 8, 4, 2, 1 ]:
-            inner ^= inner >> i
-        if (inner & 1) == 1:
-            return
-
-        for i in range(4):
-            work = 1
-            for _ in range(32):
-                if (work & parity[i]) != 0:
-                    self.sfmt[i] ^= work
-                    return
-                work <<= 1
+        self.sfmt[0] ^= ~inner & 1
 
     def nextUInt(self):
         if (self.index >= 624):
