@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget
 from ui_PokemonDisplay import Ui_PokemonDisplay
 from pokemon import Pokemon
 from util import colorIV, colorPSV

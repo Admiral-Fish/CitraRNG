@@ -1,7 +1,7 @@
 import threading
 import time
-from PySide2.QtCore import QObject, QSettings, Signal, Slot
-from PySide2.QtWidgets import QMainWindow, QMessageBox
+from PySide6.QtCore import QObject, QSettings, Signal, Slot
+from PySide6.QtWidgets import QMainWindow, QMessageBox
 from ui_MainWindow import Ui_MainWindow
 from manager_oras import ManagerORAS
 from manager_sm import ManagerSM
