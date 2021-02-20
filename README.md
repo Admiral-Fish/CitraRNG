@@ -16,7 +16,7 @@ Last tested on Citra Canary 1928.
  6. Double-click the `citrarng.py` file to run the script
  	  * Note: If this does not work then right click `citrarng.py` and select `Edit with IDLE`. Make sure that you open with Python 3.9 if you have both Python2 and Python3 installed. Then hit `F5` to run the script.
  
-XY and ORAS require a patch to work. This does not modify the gamecode in anyway that would result in illegal pokemon. All it does is write the initial seed of the game to a unused part of memory that the script has access to later. You can read this [guide](https://pokemonrng.com/guides/tools/en/Using%20IPS%20Patches%20with%20Luma%20and%20Citra/) for information on how to setup the patch correctly.
+XY and ORAS require a patch to work. This does not modify the gamecode in anyway that would result in illegal pokemon. All it does is write the initial seed of the game to a unused part of memory that the script has access to later. You can read this [guide](https://www.pokemonrng.com/misc-3ds-ips-luma-citra) for information on how to setup the patch correctly.
 
 ## Credits
  
